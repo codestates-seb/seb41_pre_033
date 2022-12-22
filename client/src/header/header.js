@@ -13,8 +13,10 @@ function Header() {
   const mypageRef = useRef(null);
   const [isActive, setIsActive] = useState(false);
   const [isMyPage, setIsMyPage] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
   const openDrop = () => setIsActive(!isActive);
   const openMyPage = () => setIsMyPage(!isMyPage);
+  const setLogin = () => setIsLogin(!isLogin);
 
   useEffect(() => {
     const pageClickEvent = (e) => {
@@ -57,15 +59,19 @@ function Header() {
         </div>
         </div>
         <div id="profile-picture">A</div>
-
+    {isLogin ? 
     <div id="my">
       <div id="mypage" onClick={openMyPage} ref={mypageRef}>
         <FontAwesomeIcon className="three-bars" icon={faBars} />
       </div>
       <div id="mypage-dropdown">
-        {isMyPage && <MyPageDropDown />}
+        {isMyPage && <MyPageDropDown isLogin={isLogin} setLogin={setLogin}/>}
       </div>
-    </div>
+    </div> :
+    <div id="not-login-body">
+        <button id="login-button" onClick={setLogin}>Log in</button>
+        <Link to="/users/sign-up" className='link'><button id="signup-button">Sign up</button></Link>
+    </div>}
     </div>
     </div>
   );

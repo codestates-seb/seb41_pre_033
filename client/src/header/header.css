@@ -212,3 +212,29 @@
   .icon {
     padding: 0.5rem;
   }
+
+  #login-button {
+    background-color: #e1ecf4;
+    color: #39739d;
+    border-radius: 0.3rem;
+    padding: 0.7rem;
+    text-align: center;
+    border: 1px solid #39739d;
+    margin: 1rem;
+    font-size: 1rem;
+  }
+  #signup-button {
+    background-color: #0a95ff;
+    color: #ffffff;
+    border-radius: 0.3rem;
+    padding: 0.7rem;
+    text-align: center;
+    border: 1px solid #e1ecf4;
+    font-size: 1rem;
+  }
+  #login-button:hover {
+    background-color: #a0c8da;
+  }
+  #signup-button:hover {
+    background-color: #0f52ba;
+  }
