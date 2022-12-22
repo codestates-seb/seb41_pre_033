@@ -56,15 +56,16 @@ function Header() {
         {isActive && <SearchDropDown />}
         </div>
         </div>
-        <div id="profile-picture">pfp</div>
+        <div id="profile-picture">A</div>
+
+    <div id="my">
       <div id="mypage" onClick={openMyPage} ref={mypageRef}>
-        <Link to="/mypage">
-            <FontAwesomeIcon className="three-bars" icon={faBars} />
-        </Link>
+        <FontAwesomeIcon className="three-bars" icon={faBars} />
       </div>
       <div id="mypage-dropdown">
         {isMyPage && <MyPageDropDown />}
       </div>
+    </div>
     </div>
     </div>
   );
