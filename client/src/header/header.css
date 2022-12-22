@@ -1,0 +1,156 @@
+@import url('https://fonts.cdnfonts.com/css/ff-din');
+
+* {
+    box-sizing: border-box;
+}
+
+#header{
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#header-body {
+    background-color: white;
+    width: 100%;
+    height: 4rem;
+    border-bottom: solid 2px rgb(158, 158, 158);
+    display: flex;
+    justify-content: center;
+    place-items: center;
+    box-shadow: 0px 3px 4px lightgray;
+  }
+
+  #search-link {
+    text-decoration: none;
+    color: #0074cc;
+  }
+
+  #search-bar {
+    margin: 0 2rem 0 2rem;
+  }
+  .search-bar-body {
+    width: 700px;
+    height: 1.8rem;
+    padding: 1.2rem 1.2rem 1.2rem 3.5rem;
+    border-radius: 0.4rem;
+    background-image: url(https://cdn1.iconfinder.com/data/icons/hawcons/32/698627-icon-111-search-256.png);
+    background-position: 13px center;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+  #mypage, #logo {
+    margin: 1rem;
+    height:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #mypage {
+    padding: 1rem;
+  }
+  .logo-img {
+    width: 10rem;
+    height:100%;
+  }
+
+  .three-bars {
+    color: black;
+    width: 2rem;
+    height: 2rem;
+  }
+  #logo {
+    font-family: 'ff din light';
+    font-kerning: auto;
+    font-size: 24px;
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-variant-ligatures: normal;
+    font-weight: normal;
+    box-shadow: none;
+    width: 10%;
+  }
+
+  #logo:hover, #mypage:hover {
+    background-color: lightgray;
+  }
+
+  input {
+    border: 1.5px solid darkgray;
+    font-size: 16px;
+  }
+  input:focus {
+    border:1.5px solid #0074cc;
+    outline: 5px solid lightgrey;
+  }
+
+  .lightgray {
+    font-size: 14px;
+    color:#6a737c;
+    margin: 0.5rem;
+  }
+  .darkgray {
+    font-size: 16px;
+    margin: 0.5rem;
+    color: #0c0d0e;
+  }
+
+  .item {
+    padding: 0.3rem;
+  }
+
+  #search-dropdown {
+    border: 1px solid lightgrey;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 700px;
+    height: 230px;
+    font-family: 'FF DIN', sans-serif;
+    box-shadow: 0 0 10px grey;
+    position: absolute;
+  }
+  #guide {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding:1rem;
+  }
+  .guide-part {
+    padding-right: 2rem;
+  }
+
+  .dropdown-footer {
+    height:60px;
+    width:100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid darkgray;
+    padding: 1rem;
+  }
+  #drop-down {
+    position: absolute;
+    top:4rem;
+  }
+
+  .question-button, .search-help {
+    margin: 0.5rem;
+    padding: 0.4rem;
+  }
+
+  .question-button {
+    color: #39739d;
+    background-color: #e1ecf4;
+    border: 1px solid #39739d;
+    border-radius: 0.3rem;
+  }
