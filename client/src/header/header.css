@@ -154,3 +154,12 @@
     border: 1px solid #39739d;
     border-radius: 0.3rem;
   }
+
+  #profile-picture {
+    border-radius: 100%;
+    background-color: green;
+    color:white; 
+    margin: 0.5rem;
+    padding: 0.7rem;
+    text-align: center;
+  }

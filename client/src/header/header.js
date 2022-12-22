@@ -5,12 +5,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import logoImg from "./logo-stackoverflow.png";
 import SearchDropDown from './dropdown';
+import MyPageDropDown from './mypageDropdown';
 
 function Header() {
 
   const dropdownRef = useRef(null);
+  const mypageRef = useRef(null);
   const [isActive, setIsActive] = useState(false);
+  const [isMyPage, setIsMyPage] = useState(false);
   const openDrop = () => setIsActive(!isActive);
+  const openMyPage = () => setIsMyPage(!isMyPage);
 
   useEffect(() => {
     const pageClickEvent = (e) => {
@@ -25,6 +29,21 @@ function Header() {
         window.removeEventListener('click', pageClickEvent);
     }
   }, [isActive]);
+
+  useEffect(() => {
+    const anotherClickEvent = (e) => {
+        if (mypageRef.current !== null && !mypageRef.current.contains(e.target)){
+            setIsMyPage(!isMyPage);
+        }
+    };
+    if (isMyPage) {
+        window.addEventListener('click', anotherClickEvent);
+    }
+    return () => {
+        window.removeEventListener('click', anotherClickEvent);
+    }
+  }, [isMyPage]);
+
   return (
     <div id="header">
     <div id="header-body">
@@ -37,10 +56,14 @@ function Header() {
         {isActive && <SearchDropDown />}
         </div>
         </div>
-      <div id="mypage">
+        <div id="profile-picture">pfp</div>
+      <div id="mypage" onClick={openMyPage} ref={mypageRef}>
         <Link to="/mypage">
             <FontAwesomeIcon className="three-bars" icon={faBars} />
         </Link>
+      </div>
+      <div id="mypage-dropdown">
+        {isMyPage && <MyPageDropDown />}
       </div>
     </div>
     </div>
