@@ -1,80 +1,35 @@
-* {
-    box-sizing: border-box;
-    font-family: sans-serif;
+.user-item-container {
+    border: 1px solid grey;
+    margin: 2rem;
+    float:left;
 }
-#user-pfp {
-    padding: 4rem;
-    background-color: green;
+ul {
+    list-style: none;
+}
+.user-pfp {
+    padding: 1.5rem;
+    background-color: darkblue;
+    color: white;
     border-radius: 1rem;
-    font-size: 4.5rem;
-    width: 6rem;
-    height: 6rem;
+    height: 4rem;
+    width: 4rem;
+    margin-right: 1rem;
     text-align: center;
     align-items: center;
-    display: flex;
-    color: white;
-    box-shadow: 0 0 0.5rem black;;
-    justify-content: center;
-    margin: 2rem;
+    font-weight: bold;
 }
-.user-icon {
-    margin-left: 0.1rem;
-}
-#user-header {
+.user-item-wrapper {
     display: flex;
     flex-direction: row;
-    justify-content: left;
+    height: 5rem;
+    width: 15rem;
+    justify-items: left;
+    align-items: center;
+    padding: 3.5rem 1.2rem;
 }
-#edit-button-container {
-    flex: 2 0 auto;
-}
-#edit-profile {
-    padding: 1rem;
-    border-radius: 0.3rem;
-    background-color: white;
-    border: 1px solid grey;
-    color: grey;
+.user-name {
     font-size: 1rem;
-}
-#edit-profile:hover {
-    background-color: #e4e4e4;
-}
-.user-info-item {
-    margin-right: 0.5rem;
-    font-size: 1.3rem;
-}
-#user-text {
-    display: flex;
-    flex-direction: column;
-    flex: 1 0 auto;
-    justify-content: center;
-    align-items: left;
-}
-
-#user-name {
-    font-size: 2.6rem;
-    margin: 0 1rem;
-}
-#user-info {
-    display: flex;
-    flex-direction: row;
-
-}
-.user-info-item {
-    color: #6a737c;
-    margin: 1rem;
-}
-#user-menu {
-    display: flex;
-    flex-direction: row;
-    padding: 2rem;
-}
-.user-menu-item{
-    margin:1rem;
-    font-size: 1.2rem;
-    padding: 1rem 1.3rem;
-    border-radius: 2rem;
-}
-.user-menu-item:hover {
-    background-color: lightgrey;
+    font-weight: bold;
+    text-decoration: none;
+    margin:0.2rem;
 }
