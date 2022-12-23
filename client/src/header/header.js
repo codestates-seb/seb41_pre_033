@@ -4,8 +4,8 @@ import './header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import logoImg from "./logo-stackoverflow.png";
-import SearchDropDown from './dropdown';
-import MyPageDropDown from './mypageDropdown';
+import SearchDropDown from './Dropdown';
+import MyPageDropDown from './MypageDropdown';
 
 function Header() {
 

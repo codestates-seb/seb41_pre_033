@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 
 @RestController
+@RequestMapping("/questions")
 public class QuestionController {
     private final QuestionService questionService;
     private final QuestionMapper questionMapper;
@@ -20,7 +21,7 @@ public class QuestionController {
         this.questionMapper = questionMapper;
     }
     @PostMapping
-    public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto requestBody) {
+    public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post requestBody) {
         return null;
     }
 
