@@ -14,11 +14,11 @@ import javax.validation.constraints.Positive;
 public class UserController {
     // service, mapper DI 필요
     private final UserService userService;
-    private final UserMapper mapper;
+    private final UserMapper userMapper;
 
-    public UserController(UserService userService, UserMapper mapper) {
+    public UserController(UserService userService, UserMapper userMapper) {
         this.userService = userService;
-        this.mapper = mapper;
+        this.userMapper = userMapper;
     }
 
     @PostMapping
