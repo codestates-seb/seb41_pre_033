@@ -9,8 +9,9 @@ import javax.persistence.*;
 
 
 public class TagDto {
+    @Getter
     public static class Response {
-        String tagName;
-        String tagExplanation;
+        String name;
+        String explanation;
     }
 }
