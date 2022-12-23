@@ -16,6 +16,7 @@ import javax.validation.constraints.Positive;
 @RequestMapping("/users")
 public class UserController {
     // service, mapper DI 필요
+    private static final int SIZE = 36;
     private final UserService userService;
     private final UserMapper userMapper;
 
@@ -45,22 +46,26 @@ public class UserController {
     @PatchMapping("/edit/{user-id}")
     public ResponseEntity patchUser(@PathVariable("user-id") long userId,
                                     @Valid @RequestBody UserDto.Patch requestBody) {
+        // TODO: userId 를 입력받고 requestBody 에 포함된 값들만 수정 후에 응답을 반환하거나 예외 처리
         return null;
     }
 
     @GetMapping("/{user-id}")
     public ResponseEntity getUser(@PathVariable("user-id") long userId) {
+        // TODO: userId 를 입력받아서 UserDto.Response 에 있는 값을 응답으로 반환하거나 예외 처리
         return null;
     }
 
     @GetMapping
     public ResponseEntity getUsers(@Positive @RequestParam int page,
-                                   @Positive @RequestParam int size) {
+                                   @Positive @RequestParam String tab) {
+        // TODO: page 와 tab 을 입력받아서 abc 순서(디폴트) 또는 reputation 기준으로 정렬하여 페이지네이션을 응답으로 반환하거나 예외 처리
         return null;
     }
 
     @DeleteMapping("/delete/{user-id}")
     public ResponseEntity deleteUser(@PathVariable("user-id") long userId) {
+        // TODO: userId 와 일치하는 User 를 삭제한다.
         userService.deleteUser(userId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

@@ -32,8 +32,6 @@ public class UserDto {
 
         private String title;
 
-        // tag 작성 후에 watchedTag, ignoredTag 추가
-
         private String link;
     }
 
@@ -49,8 +47,6 @@ public class UserDto {
         private String title;
 
         private String introduction;
-
-        // tag 작성 후에 watchedTag, ignoredTag 추가
 
         private String link;
     }
