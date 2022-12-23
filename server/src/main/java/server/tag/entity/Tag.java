@@ -3,10 +3,12 @@ package server.tag.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import server.question.entity.QuestionTag;
+import server.user.entity.UserTag;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -14,8 +16,14 @@ import javax.persistence.Id;
 @NoArgsConstructor
 public class Tag {
     @Id
-    private String tagName;
+    private String name;
 
     @Column(nullable = false)
-    private String tagExplanation;
+    private String explanation;
+
+    @OneToMany(mappedBy = "tag")
+    private List<QuestionTag> questionTags = new ArrayList<>();
+
+    @OneToMany(mappedBy = "tag")
+    private List<UserTag> userTags = new ArrayList<>();
 }
