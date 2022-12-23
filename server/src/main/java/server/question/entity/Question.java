@@ -1,11 +1,8 @@
 package server.question.entity;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import server.tag.entity.Tag;
-import server.tag.entity.TagManager;
 import server.user.entity.User;
 
 import javax.persistence.*;
@@ -45,6 +42,9 @@ public class Question {
     @JoinColumn(name = "following_user_id")
     private User followingUser;
 
+//    @OneToMany(mappedBy = "question", cascade = CascadeType.PERSIST)
+//    private List<UserQuestion> userQuestions = new ArrayList<>();
+
     @OneToMany(mappedBy = "question", cascade = CascadeType.PERSIST)
-    private List<TagManager> tagManagers = new ArrayList<>();
+    private List<QuestionTag> questionTags = new ArrayList<>();
 }
