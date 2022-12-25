@@ -4,39 +4,43 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity
+@Entity(name = "USERS")
 public class User {
     @Id
+    @GeneratedValue(strategy = IDENTITY)
     private Long userId;
 
-    @Column(length = 50, nullable = false)
-    private String nickName;
-
-    @Column(length = 20, nullable = false)
+    @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
+    private String nickname;
 
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(length = 30)
+    @Column
     private String country;
 
-    @Column(nullable = false)
+    @Column
     private Integer reputation;
 
-    @Column(length = 50)
+    @Column
     private String title;
 
-    @Column(length = 500)
+    @Column
     private String introduction;
 
-    @Column(length = 200)
+    @Column
     private String link;
 }

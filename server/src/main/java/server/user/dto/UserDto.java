@@ -1,48 +1,59 @@
 package server.user.dto;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 public class UserDto {
-
     @Getter
     @AllArgsConstructor
     public static class Post {
-        @NotBlank(message = "닉네임을 입력해주세요.")
-        private String nickName;
+        @NotBlank
+        private String nickname;
+
         @NotBlank
         @Email
         private String email;
 
-        @NotBlank(message = "비밀번호를 입력해주세요.")
+        @NotBlank
         private String password;
     }
 
     @Getter
-    @AllArgsConstructor
+    @Setter
     public static class Patch {
+        // TODO: 바꾸고 싶은 값만 입력받아야 한다.
+        // TODO: Setter 는 나중에 빼줘야함(12/24)
         private long userId;
 
-        private String nickName;
+        private String nickname;
 
         private String country;
+
+        private Integer reputation;
 
         private String title;
 
         private String link;
     }
 
+    @Getter
+    @Setter
     public static class Response {
+        // TODO: Setter 는 나중에 빼줘야함(12/24)
         private long userId;
 
-        private String nickName;
+        private String nickname;
+
+        private String email;
 
         private String country;
 
-        private Integer reputation;
+        private int reputation;
 
         private String title;
 
