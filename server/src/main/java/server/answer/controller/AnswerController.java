@@ -12,6 +12,7 @@ import javax.validation.constraints.Positive;
 @RestController
 @RequestMapping("/answers")
 public class AnswerController {
+    private static final int SIZE = 36;
     private AnswerService answerService;
     private AnswerMapper answerMapper;
 
@@ -34,8 +35,7 @@ public class AnswerController {
         return null;
     }
     @GetMapping
-    public ResponseEntity getAnswers(@Positive @RequestParam int page,
-                                     @Positive @RequestParam int size){
+    public ResponseEntity getAnswers(@Positive @RequestParam int page){
         return null;
     }
     @DeleteMapping("/{answer-id}")
