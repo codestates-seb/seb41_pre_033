@@ -7,9 +7,9 @@ export const UserItem = ({user}) => {
     return (
         <li className="user-item-container">
             <div className="user-item-wrapper">
-                <div className="user-pfp">{`${(user_nickname).slice(0,1).toUpperCase()}`}</div>
+                <Link to={`/users/${user.id}/${user.user_nickname}`}><div className="user-pfp">{`${(user_nickname).slice(0,1).toUpperCase()}`}</div></Link>
                 <div className="users-info">
-                    <Link to="/users/id"><div className="user-name">{user_nickname}</div></Link>
+                    <Link to={`/users/${user.id}/${user.user_nickname}`}><div className="user-name">{user_nickname}</div></Link>
                     <div className="user-location">{user_country}</div>
                     <div className="user-tags">{`${(user_tags)[0]}, ${(user_tags)[1]}`}</div>
                 </div>

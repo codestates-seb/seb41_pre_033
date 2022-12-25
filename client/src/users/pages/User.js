@@ -2,18 +2,25 @@ import './user.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { useParams } from 'react-router-dom';
 
 //개별 유저의 페이지
-function User () {
+const User = ({users}) => {
+    const { id, user_nickname } = useParams();
+    const test = id;
+    console.log(test);
+    const owner = users.filter(e =>  e.id === test);
+    console.log("users is ", users);
+    console.log(owner);
     return (
     <div id="user-body">
         <div id="user-header">
-            <div id="user-pfp">A</div>
+            <div id="user-pfp">{`${(user_nickname).slice(0,1).toUpperCase()}`}</div>
             <div id="user-text">
-                <div id="user-name">A Name</div>
+                <div id="user-name">{user_nickname}</div>
                 <div id="user-info">
                     <div className='user-info-item'><FontAwesomeIcon className="user-icon" icon={faGithub} /></div>
-                    <div className='user-info-item'><FontAwesomeIcon className="user-icon" icon={faLocationDot} /> From 맛동산</div>
+                    <div className='user-info-item'><FontAwesomeIcon className="user-icon" icon={faLocationDot} /> From {owner.user_country}</div>
                 </div>
                 <div className='user-info-item'>Title here</div>
             </div>

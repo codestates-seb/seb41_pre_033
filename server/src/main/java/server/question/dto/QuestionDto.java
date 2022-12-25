@@ -27,14 +27,23 @@ public class QuestionDto {
         private String body;
         private String bounty;
         private List<QuestionTagDto> questionTags;
+
+        public void setQuestionId(long questionId) {
+            this.questionId = questionId;
+        }
     }
 
     @Getter
     public static class PatchVote{
         private long userId;
         private long questionId;
+
+        public void setQuestionId(long questionId) {
+            this.questionId = questionId;
+        }
     }
     @Getter
+    @Setter
     public static class Response {
         private long questionId;
         @Setter(AccessLevel.NONE)
@@ -44,7 +53,7 @@ public class QuestionDto {
         private String body;
         private int bounty;
         private LocalDateTime created;
-        private int views;
+        private int viewed;
         private int vote;
         private List<QuestionTagResponseDto> questionTags;
         private List<AnswerDto.Response> answers;

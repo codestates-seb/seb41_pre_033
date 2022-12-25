@@ -18,34 +18,52 @@ import java.util.List;
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "question_id", nullable = false)
+    @Column(name = "QUESTION_ID", nullable = false)
     private Long questionId;
 
+    @Column
     private String title;
 
+    @Column
     private String body;
 
+    @Column
     private int bounty;
 
+    @Column
     private LocalDateTime created;
 
+    @Column
     private int viewed;
 
+    @Column
     private int vote;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "USER_ID")
     private User user;
 
-
-    @OneToMany(mappedBy = "question", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<QuestionTag> questionTags = new ArrayList<>();
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Answer> answers = new ArrayList<>();
 
+    public void addQuestionTags(QuestionTag questionTag) {
+        this.questionTags.add(questionTag);
+        if(questionTag.getQuestion() != this){
+            questionTag.addQuestion(this);
+        }
+    }
 
-//    user 에 follow 기능 추가 시 구현
+    public void addAnswers(Answer answer) {
+        answers.add(answer);
+        if(answer.getQuestion() != this){
+            answer.setQuestion(this);
+        }
+    }
+
+    //    user 에 follow 기능 추가 시 구현
 //    @ManyToOne
 //    @JoinColumn(name = "following_user_id")
 //    private User followingUser;
