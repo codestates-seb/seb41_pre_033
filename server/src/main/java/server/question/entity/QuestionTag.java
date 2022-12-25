@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class QuestionTag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "question_tag_id", nullable = false)
+    @Column(name = "QUESTION_TAG_ID", nullable = false)
     private Long questionTagId;
 
     @ManyToOne
@@ -23,6 +23,20 @@ public class QuestionTag {
     private Question question;
 
     @ManyToOne
-    @JoinColumn(name = "TAG_ID")
+    @JoinColumn(name = "TAG_NAME")
     private Tag tag;
+
+    public void addQuestion(Question question){
+        this.question = question;
+        if(!this.question.getQuestionTags().contains(this)){
+            this.question.getQuestionTags().add(this);
+        }
+    }
+
+    public void addTag(Tag tag) {
+        this.tag = tag;
+        if(!this.tag.getQuestionTags().contains(this)){
+            this.tag.addQuestionTag(this);
+        }
+    }
 }
