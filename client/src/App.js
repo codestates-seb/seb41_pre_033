@@ -33,10 +33,10 @@ function App() {
         <Route path="/questions" element={<Questions />} />
         <Route path="/tags" element={<Tags />} />
         <Route path="/users" element={<Users users={users} />} />
+        <Route path="/users/:id/:user_nickname" element={<User users={users}/>}/>
         <Route path="/dev1" /> {/* 코드 리뷰용 임시 루트1 */}
         <Route path="/dev2" /> {/* 코드 리뷰용 임시 루트2 */}
         <Route path="/dev3" /> {/* 코드 리뷰용 임시 루트3 */}
-        <Route path="/user" element={<User />}/>
       </Routes>
     </Router>
     </div>
