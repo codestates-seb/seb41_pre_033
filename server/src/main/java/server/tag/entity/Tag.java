@@ -1,5 +1,6 @@
 package server.tag.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Tag {
     @Id
     private String name;
@@ -26,4 +28,11 @@ public class Tag {
 
     @OneToMany(mappedBy = "tag")
     private List<UserTag> userTags = new ArrayList<>();
+
+    public void addQuestionTag(QuestionTag questionTag) {
+        this.questionTags.add(questionTag);
+        if(questionTag.getTag() != this){
+            questionTag.addTag(this);
+        }
+    }
 }

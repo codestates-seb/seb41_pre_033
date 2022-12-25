@@ -7,5 +7,5 @@ import lombok.Getter;
 @Getter
 public class QuestionTagResponseDto {
     private String tagName;
-    private String tagExplanation;
+    private String explanation;
 }

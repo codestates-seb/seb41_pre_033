@@ -32,25 +32,26 @@ public class TagController {
 
     @GetMapping("/tags")
     public ResponseEntity getTags(@Positive @RequestParam int page){
-        Page<Tag> pageTags = TagService.findTags(page-1, SIZE);
+        Page<Tag> pageTags = tagService.findTags(page-1, SIZE);
         List<Tag> tags = pageTags.getContent();
 
         //Todo 정렬 기능 추가
-
-        return new ResponseEntity<>(
-                new MultiResponseDto<>(tagMapper.tagsToTagResponseDtos(tags),pageTags),
-                HttpStatus.OK);
+//
+//        return new ResponseEntity<>(
+//                new MultiResponseDto<>(tagMapper.tagsToTagResponseDtos(tags),pageTags),
+//                HttpStatus.OK);
+        return null;
     }
 
     //Todo: search 기능 추가, 정렬
     @GetMapping("/tags/search")
     public ResponseEntity getSearchTags(@Positive @RequestParam int page,
                                         @RequestParam String search){
-        List<Tag> tags = TagService.findTags();
+        List<Tag> tags = tagService.findTags();
 
-        return new ResponseEntity(
-                new MultiResponseDto<>(tagMapper.tagsToTagResponseDtos(tags)),
-                HttpStatus.OK);
-
+//        return new ResponseEntity<>(
+//                new MultiResponseDto<>(tagMapper.tagsToTagResponseDtos(tags)),
+//                HttpStatus.OK);
+        return null;
     }
 }
