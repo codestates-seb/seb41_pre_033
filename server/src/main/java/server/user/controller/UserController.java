@@ -3,6 +3,7 @@ package server.user.controller;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import server.dto.MultiResponseDto;
 import server.dto.SingleResponseDto;
@@ -85,7 +86,7 @@ public class UserController {
     }
 
     @DeleteMapping("/delete/{user-id}")
-    public ResponseEntity deleteUser(@PathVariable("user-id") long userId) {
+    public ResponseEntity deleteUser(@PathVariable("user-id") @Positive long userId) {
         // TODO: userId 와 일치하는 User 를 삭제한다.
         userService.deleteUser(userId);
 
