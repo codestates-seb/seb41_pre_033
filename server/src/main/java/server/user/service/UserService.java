@@ -5,6 +5,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import server.exception.BusinessLogicException;
+import server.exception.ExceptionCode;
 import server.user.entity.User;
 import server.user.repository.UserRepository;
 
@@ -57,6 +59,8 @@ public class UserService {
                 .ifPresent(findUser::setReputation);
         Optional.ofNullable(user.getTitle())
                 .ifPresent(findUser::setTitle);
+        Optional.ofNullable(user.getIntroduction())
+                .ifPresent(findUser::setIntroduction);
         Optional.ofNullable(user.getLink())
                 .ifPresent(findUser::setLink);
 
@@ -70,12 +74,12 @@ public class UserService {
     public User findVerifiedUser(long userId) {
         Optional<User> user = userRepository.findById(userId);
         return user.orElseThrow(() ->
-                new RuntimeException("user not found"));
+                new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
     }
 
     private void verifyExistsEmail(String email) {
         Optional<User> user = userRepository.findByEmail(email);
         if (user.isPresent())
-            throw new RuntimeException("user exists");
+            throw new BusinessLogicException(ExceptionCode.USER_EXISTS);
     }
 }

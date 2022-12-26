@@ -36,6 +36,8 @@ public class UserDto {
 
         private Integer reputation;
 
+        private String introduction;
+
         private String title;
 
         private String link;
