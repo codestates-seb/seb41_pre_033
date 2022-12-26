@@ -22,7 +22,7 @@ public class Tag {
     @Column(nullable = false)
     private String explanation;
 
-    @OneToMany(mappedBy = "tag")
+    @OneToMany(mappedBy = "tag",cascade = CascadeType.ALL)
     private List<QuestionTag> questionTags = new ArrayList<>();
 
     public void addQuestionTag(QuestionTag questionTag) {
@@ -31,4 +31,11 @@ public class Tag {
             questionTag.addTag(this);
         }
     }
+
+//    public void addUserTag(UserTag userTag){
+//        this.questionTags.add(userTag);
+//        if(userTag.getTag() != this){
+//            userTag.addTag(this);
+//        }
+//    }
 }

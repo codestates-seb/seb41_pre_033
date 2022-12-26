@@ -11,4 +11,6 @@ import server.question.entity.QuestionTag;
 public interface QuestionRepository extends JpaRepository<Question, Long> {
     Page<Question> findAllByTitleContainingIgnoreCase(String searchKeyword, Pageable pageable);
     Page<Question> findAll(Pageable pageable);
+
+    Question findByQuestionId(Long questionId);
 }
