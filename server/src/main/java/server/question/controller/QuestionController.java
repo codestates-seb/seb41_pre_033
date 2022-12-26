@@ -6,8 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.dto.MultiResponseDto;
 import server.dto.SingleResponseDto;
-import server.exception.BusinessLogicException;
-import server.exception.ExceptionCode;
 import server.question.dto.QuestionDto;
 import server.question.entity.Question;
 import server.question.mapper.QuestionMapper;
@@ -54,9 +52,6 @@ public class QuestionController {
     public ResponseEntity patchQuestionVote(@PathVariable("question-id") long questionId,
                                             @RequestParam String updown,
                                             @RequestBody QuestionDto.PatchVote votePatchDto){
-        //쿼리로 updown String 을 입력받아, up이면 올리고, down이면 내리고
-        // + 현재 로그인 한 회원의 votes 에 +1
-        // 현재 로그인 한 회원 id는 request body 에 담겨서 들어옴
         votePatchDto.setQuestionId(questionId);
         Question question =
                 questionService.updateVote(votePatchDto.getQuestionId(),votePatchDto.getUserId(),updown);

@@ -31,4 +31,11 @@ public class Tag {
             questionTag.addTag(this);
         }
     }
+
+//    public void addUserTag(UserTag userTag){
+//        this.questionTags.add(userTag);
+//        if(userTag.getTag() != this){
+//            userTag.addTag(this);
+//        }
+//    }
 }

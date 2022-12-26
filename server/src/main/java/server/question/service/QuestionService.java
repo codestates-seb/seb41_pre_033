@@ -14,6 +14,8 @@ import server.question.entity.QuestionTag;
 import server.question.repository.QuestionRepository;
 import server.question.repository.QuestionTagRepository;
 import server.tag.service.TagService;
+import server.user.entity.User;
+import server.user.repository.UserRepository;
 import server.user.service.UserService;
 
 import javax.transaction.Transactional;
@@ -28,16 +30,17 @@ public class QuestionService {
     private final UserService userService;
     private final QuestionRepository questionRepository;
     private final TagService tagService;
-    private final AnswerService answerService;
 
     private final QuestionTagRepository questionTagRepository;
+    private final UserRepository userRepository;
 
-    public QuestionService(UserService userService, QuestionRepository questionRepository, TagService tagService, AnswerService answerService, QuestionTagRepository questionTagRepository) {
+    public QuestionService(UserService userService, QuestionRepository questionRepository, TagService tagService, AnswerService answerService, QuestionTagRepository questionTagRepository,
+                           UserRepository userRepository) {
         this.userService = userService;
         this.questionRepository = questionRepository;
         this.tagService = tagService;
-        this.answerService = answerService;
         this.questionTagRepository = questionTagRepository;
+        this.userRepository = userRepository;
     }
 
     public Question createQuestion(Question question){
@@ -71,7 +74,9 @@ public class QuestionService {
         return saveQuestion(findQuestion);
     }
     public Question updateVote(long questionId, long userId, String updown) {
-        //Todo : userId - 현재 로그인 유저의 vote 수 늘려주기
+//        Todo: 투표한 유저의 vote 증가
+//        User voteUser = userRepository.findById(userId).orElseThrow();
+//        voteUser.setVote(voteUser.getVote()+1);
         Question findQuestion = findVerifiedQuestion(questionId);
         int vote = (updown.equals("up"))? findQuestion.getVote()+1:findQuestion.getVote()-1;
 
