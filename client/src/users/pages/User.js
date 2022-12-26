@@ -3,15 +3,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 
 //개별 유저의 페이지
 const User = ({users}) => {
     const { id, user_nickname } = useParams();
-    const test = id;
-    console.log(test);
-    const owner = users.filter(e =>  e.id === test);
-    console.log("users is ", users);
-    console.log(owner);
+    const tempDomain = "http://localhost:3001";
+    const [oneUser, setOneUsers] = useState([]);
+      useEffect(() => {
+        const getOneUser = () => {
+            return fetch(tempDomain+`/users/${(id)}`)
+            .then((res) => res.json())
+            .then((data) => {
+            setOneUsers(data)
+            })
+        };
+        getOneUser();
+    }, [])
+
+    console.log(oneUser);
+
     return (
     <div id="user-body">
         <div id="user-header">
@@ -20,7 +31,7 @@ const User = ({users}) => {
                 <div id="user-name">{user_nickname}</div>
                 <div id="user-info">
                     <div className='user-info-item'><FontAwesomeIcon className="user-icon" icon={faGithub} /></div>
-                    <div className='user-info-item'><FontAwesomeIcon className="user-icon" icon={faLocationDot} /> From {owner.user_country}</div>
+                    <div className='user-info-item'><FontAwesomeIcon className="user-icon" icon={faLocationDot} /> From {oneUser.user_country}</div>
                 </div>
                 <div className='user-info-item'>Title here</div>
             </div>
