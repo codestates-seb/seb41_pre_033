@@ -13,7 +13,8 @@ public enum ExceptionCode {
     CANNOT_CHANGE_QUESTION(403, "Question can not be changed"),
     TAG_NOT_FOUND(404, "Tag not found"),
     QUESTION_NOT_FOUND(404, "Question not found"),
-    CANNOT_DELETE_QUESTION(400, "Answered question can not be deleted");
+    CANNOT_DELETE_QUESTION(400, "Answered question can not be deleted"),
+    ACCESS_DENIED(401, "Only author can edit" );
 
 
 

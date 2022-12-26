@@ -5,6 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.dto.MultiResponseDto;
+import server.dto.SingleResponseDto;
+import server.exception.BusinessLogicException;
+import server.exception.ExceptionCode;
 import server.question.dto.QuestionDto;
 import server.question.entity.Question;
 import server.question.mapper.QuestionMapper;
@@ -30,17 +33,21 @@ public class QuestionController {
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post questionPostDto) {
         Question question = questionService.createQuestion(questionMapper.questionPostDtoToQuestion(questionPostDto));
 
-        return new ResponseEntity<>(questionMapper.questionToQuestionResponseDto(question), HttpStatus.CREATED);
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(questionMapper.questionToQuestionResponseDto(question)), HttpStatus.CREATED);
     }
 
     @PatchMapping("/edit/{question-id}")
     public ResponseEntity patchQuestion(@PathVariable("question-id") long questionId,
                                         @Valid @RequestBody QuestionDto.PatchQuestion questionPatchDto) {
+
         questionPatchDto.setQuestionId(questionId);
+
         Question question =
                 questionService.updateQuestion(questionMapper.patchQuestionDtoToQuestion(questionPatchDto));
 
-        return new ResponseEntity<>(questionMapper.questionToQuestionResponseDto(question),HttpStatus.OK);
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(questionMapper.questionToQuestionResponseDto(question)),HttpStatus.OK);
     }
 
     @PatchMapping("/edit/{question-id}/vote")
@@ -53,13 +60,15 @@ public class QuestionController {
         votePatchDto.setQuestionId(questionId);
         Question question =
                 questionService.updateVote(votePatchDto.getQuestionId(),votePatchDto.getUserId(),updown);
-        return new ResponseEntity<>(questionMapper.questionToQuestionResponseDto(question),HttpStatus.OK);
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(questionMapper.questionToQuestionResponseDto(question)),HttpStatus.OK);
     }
 
     @GetMapping("/{question-id}")
     public ResponseEntity getQuestion(@PathVariable("question-id") long questionId) {
         Question question = questionService.findQuestion(questionId);
-        return new ResponseEntity<>(questionMapper.questionToQuestionResponseDto(question),
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(questionMapper.questionToQuestionResponseDto(question)),
                 HttpStatus.OK);
     }
 
