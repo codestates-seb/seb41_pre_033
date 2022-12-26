@@ -3,36 +3,37 @@ package server.user.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import server.exception.BusinessLogicException;
 import server.exception.ExceptionCode;
 import server.user.entity.User;
 import server.user.repository.UserRepository;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 @Transactional
 @Service
 public class UserService {
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+//    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
+//        this.passwordEncoder = passwordEncoder;
     }
 
     public User createUser(User user) {
         verifyExistsEmail(user.getEmail());
 
         // Password 암호화
-        String encryptedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encryptedPassword);
+//        String encryptedPassword = passwordEncoder.encode(user.getPassword());
+//        user.setPassword(encryptedPassword);
 
         return userRepository.save(user);
     }
 
+    @Transactional(readOnly = true)
     public User findUser(long userId) {
         return findVerifiedUser(userId);
     }
@@ -68,9 +69,12 @@ public class UserService {
     }
 
     public void deleteUser(long userId) {
-        userRepository.deleteById(userId);
+        User findUser = findVerifiedUser(userId);
+
+        userRepository.delete(findUser);
     }
 
+    @Transactional(readOnly = true)
     public User findVerifiedUser(long userId) {
         Optional<User> user = userRepository.findById(userId);
         return user.orElseThrow(() ->
