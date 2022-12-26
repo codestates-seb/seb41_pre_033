@@ -16,14 +16,14 @@ import server.question.repository.QuestionTagRepository;
 import server.tag.service.TagService;
 import server.user.service.UserService;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class QuestionService {
     private final UserService userService;
     private final QuestionRepository questionRepository;
@@ -50,7 +50,11 @@ public class QuestionService {
     }
 
     public Question updateQuestion(Question question) {
+        // Todo : 바디에 담긴 user-id와 작성자를 비교하여 수정 가능/불가 설정
         Question findQuestion = findVerifiedQuestion(question.getQuestionId());
+        if(!question.getUser().getUserId().equals(findQuestion.getUser().getUserId())){
+            throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED);
+        }
 
         Optional.ofNullable(question.getTitle())
                 .ifPresent(findQuestion::setTitle);
@@ -58,17 +62,21 @@ public class QuestionService {
                 .ifPresent(findQuestion::setBody);
         Optional.ofNullable(question.getBounty())
                 .ifPresent(findQuestion::setBounty);
-        Optional.ofNullable(question.getQuestionTags())
-                .ifPresent(findQuestion::setQuestionTags);
+        if(Optional.ofNullable(question.getQuestionTags())
+                .isPresent()){
+            questionTagRepository.deleteAllByQuestion(findQuestion);
+            findQuestion.setQuestionTags(question.getQuestionTags());
+        }
 
-        return questionRepository.save(findQuestion);
+        return saveQuestion(findQuestion);
     }
     public Question updateVote(long questionId, long userId, String updown) {
+        //Todo : userId - 현재 로그인 유저의 vote 수 늘려주기
         Question findQuestion = findVerifiedQuestion(questionId);
         int vote = (updown.equals("up"))? findQuestion.getVote()+1:findQuestion.getVote()-1;
 
         findQuestion.setVote(vote);
-        return questionRepository.save(findQuestion);
+        return saveQuestion(findQuestion);
     }
 
     public Page<Question> findQuestions(int page, int size, String tab) {
@@ -122,6 +130,7 @@ public class QuestionService {
         userService.findVerifiedUser(question.getUser().getUserId());
 
         // Tag 가 존재하는지 확인
+        // Todo : tag not found 추가
         question.getQuestionTags()
                 .forEach(questionTag -> tagService.
                         findVerifiedTag(questionTag.getTag().getName()));

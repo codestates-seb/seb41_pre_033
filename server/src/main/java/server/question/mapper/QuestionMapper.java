@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface QuestionMapper {
-    default Question questionPostDtoToQuestion(QuestionDto.Post questionPostDto){
+    default Question questionPostDtoToQuestion(QuestionDto.Post questionPostDto) {
         Question question = new Question();
         User user = new User();
         user.setUserId(questionPostDto.getUserId());
@@ -34,12 +34,33 @@ public interface QuestionMapper {
         return question;
     }
 
-    Question patchQuestionDtoToQuestion(QuestionDto.PatchQuestion questionPatchDto);
+    default Question patchQuestionDtoToQuestion(QuestionDto.PatchQuestion questionPatchDto) {
+        Question question = new Question();
+        User user = new User();
+        user.setUserId(questionPatchDto.getUserId());
+        question.setUser(user);
+        List<QuestionTag> questionTags = questionPatchDto.getQuestionTags().stream()
+                .map(questionTagDto -> {
+                    QuestionTag questionTag = new QuestionTag();
+                    Tag tag = new Tag();
+                    tag.setName(questionTagDto.getTagName());
+                    questionTag.addQuestion(question);
+                    questionTag.addTag(tag);
+                    return questionTag;
+                })
+                .collect(Collectors.toList());
+        question.setQuestionTags(questionTags);
+        question.setQuestionId(questionPatchDto.getQuestionId());
+        question.setTitle(questionPatchDto.getTitle());
+        question.setBody(questionPatchDto.getBody());
+        question.setBounty(questionPatchDto.getBounty());
+        return question;
+    }
 
-    default QuestionDto.Response questionToQuestionResponseDto(Question question){
+    default QuestionDto.Response questionToQuestionResponseDto(Question question) {
         List<QuestionTag> questionTags = question.getQuestionTags();
 
-        QuestionDto.Response questionResponseDto =  new QuestionDto.Response();
+        QuestionDto.Response questionResponseDto = new QuestionDto.Response();
         questionResponseDto.setQuestionId(question.getQuestionId());
         questionResponseDto.setUserId(question.getUser());
         questionResponseDto.setNickname(question.getUser().getNickname());
@@ -56,7 +77,7 @@ public interface QuestionMapper {
         return questionResponseDto;
     }
 
-    default List<QuestionTagResponseDto> questionTagsToQuestionTagResponseDtos(List<QuestionTag> questionTags){
+    default List<QuestionTagResponseDto> questionTagsToQuestionTagResponseDtos(List<QuestionTag> questionTags) {
         return questionTags
                 .stream()
                 .map(questionTag -> QuestionTagResponseDto

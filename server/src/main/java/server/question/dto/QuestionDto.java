@@ -25,7 +25,7 @@ public class QuestionDto {
         private long questionId;
         private String title;
         private String body;
-        private String bounty;
+        private int bounty;
         private List<QuestionTagDto> questionTags;
 
         public void setQuestionId(long questionId) {
