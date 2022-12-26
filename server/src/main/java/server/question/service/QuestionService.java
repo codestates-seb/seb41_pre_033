@@ -16,6 +16,9 @@ import server.question.repository.QuestionTagRepository;
 import server.tag.service.TagService;
 import server.user.service.UserService;
 
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -39,11 +42,11 @@ public class QuestionService {
 
     public Question createQuestion(Question question){
         verifyQuestion(question);
-        Question savedQuestion = saveQuestion(question);
+        question.setCreated(LocalDateTime.now());
 
         //Todo: ref 에는 updateStamp 가 있는데, tag 나 answer 에 비슷한 처리를 해야하는가?
 
-        return savedQuestion;
+        return saveQuestion(question);
     }
 
     public Question updateQuestion(Question question) {
@@ -129,7 +132,10 @@ public class QuestionService {
     }
 
     public Question findQuestion(long questionId) {
-        return findVerifiedQuestion(questionId);
+        Question findQuestion = findVerifiedQuestion(questionId);
+        int viewed = findQuestion.getViewed();
+        findQuestion.setViewed(viewed+1);
+        return questionRepository.save(findQuestion);
     }
 
 

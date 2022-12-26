@@ -42,7 +42,7 @@ public interface QuestionMapper {
         QuestionDto.Response questionResponseDto =  new QuestionDto.Response();
         questionResponseDto.setQuestionId(question.getQuestionId());
         questionResponseDto.setUserId(question.getUser());
-        questionResponseDto.setNickname(question.getUser().getNickName());
+        questionResponseDto.setNickname(question.getUser().getNickname());
         questionResponseDto.setTitle(question.getTitle());
         questionResponseDto.setBody(question.getBody());
         questionResponseDto.setBounty(question.getBounty());

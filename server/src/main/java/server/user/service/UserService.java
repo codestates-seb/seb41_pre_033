@@ -67,7 +67,7 @@ public class UserService {
         userRepository.deleteById(userId);
     }
 
-    private User findVerifiedUser(long userId) {
+    public User findVerifiedUser(long userId) {
         Optional<User> user = userRepository.findById(userId);
         return user.orElseThrow(() ->
                 new RuntimeException("user not found"));
