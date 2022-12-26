@@ -7,16 +7,14 @@ import logoImg from "./logo-stackoverflow.png";
 import SearchDropDown from './Dropdown';
 import MyPageDropDown from './MypageDropdown';
 
-function Header() {
+function Header({isLogin, setLogin}) {
 
   const dropdownRef = useRef(null);
   const mypageRef = useRef(null);
   const [isActive, setIsActive] = useState(false);
   const [isMyPage, setIsMyPage] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
   const openDrop = () => setIsActive(!isActive);
   const openMyPage = () => setIsMyPage(!isMyPage);
-  const setLogin = () => setIsLogin(!isLogin);
 
   useEffect(() => {
     const pageClickEvent = (e) => {
@@ -69,7 +67,7 @@ function Header() {
       </div>
     </div> :
     <div id="not-login-body">
-        <button id="login-button" onClick={setLogin}>Log in</button>
+        <Link to="/users/login"><button id="login-button">Log in</button></Link>
         <Link to="/users/sign-up" className='link'><button id="signup-button">Sign up</button></Link>
     </div>}
     </div>

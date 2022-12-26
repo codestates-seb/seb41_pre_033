@@ -60,7 +60,7 @@ public class Question {
     public void addAnswers(Answer answer) {
         answers.add(answer);
         if(answer.getQuestion() != this){
-            answer.setQuestion(this);
+            answer.addQuestion(this);
         }
     }
 

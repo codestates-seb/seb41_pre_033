@@ -29,7 +29,7 @@ public class QuestionTag {
     public void addQuestion(Question question){
         this.question = question;
         if(!this.question.getQuestionTags().contains(this)){
-            this.question.getQuestionTags().add(this);
+            this.question.addQuestionTags(this);
         }
     }
 

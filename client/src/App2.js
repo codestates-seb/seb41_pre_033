@@ -11,7 +11,7 @@ import User from "./users/pages/User";
 import Login from "./users/pages/login/Login"
 import Signup from "./users/pages/login/Signup"
 
-function App() {
+function App2() {
   const tempDomain = "http://localhost:3001";
   const [users, setUsers] = useState([]);
   const [isLogin, setIsLogin] = useState(false);
@@ -51,4 +51,4 @@ function App() {
   );
 }
 
-export default App;
+export default App2;

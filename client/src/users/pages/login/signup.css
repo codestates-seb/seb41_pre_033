@@ -1,0 +1,13 @@
+* {
+    box-sizing: border-box;
+}
+#signup-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#signup-form {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+}
