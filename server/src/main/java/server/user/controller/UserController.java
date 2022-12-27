@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.dto.MultiResponseDto;
 import server.dto.SingleResponseDto;
+import server.user.dto.MailDto;
 import server.user.dto.UserDto;
 import server.user.entity.User;
 import server.user.mapper.UserMapper;
@@ -28,13 +29,12 @@ public class UserController {
         this.userMapper = userMapper;
     }
 
-//    @PostMapping("/account-recovery")
-//    public String accountRecovery(@RequestBody MailDto mailDto) {
-        // TODO: requestBody 에 email 이 입력되면 email 을 userRepository 에서 찾아서 응답을 보내주는 로직 필요
-        // TODO: 사실 보안상으로는 존재하지 않는 이메일을 표시해주는 것보다 이메일을 보내는 데 성공했다고만 표시해주는 것이 좋다.
-//        mailService.mailSimpleSend(mailDto);
-//        return "account-recovery";
-//    }
+    @PostMapping("/account-recovery")
+    public void accountRecovery(@RequestBody MailDto mailDto) {
+//         TODO: requestBody 에 email 이 입력되면 email 을 userRepository 에서 찾아서 응답을 보내주는 로직 필요
+//         TODO: 사실 보안상으로는 존재하지 않는 이메일을 표시해주는 것보다 이메일을 보내는 데 성공했다고만 표시해주는 것이 좋다.
+        userService.sendMail(mailDto.getEmail());
+    }
 
     @PostMapping("/sign-up")
     public ResponseEntity signUp(@Valid @RequestBody UserDto.Post requestBody) {
