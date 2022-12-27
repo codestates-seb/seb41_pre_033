@@ -1,50 +1,43 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Header from './header/Header';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import Ask from "./questions/pages/ask/Ask";
-import Navbar from "./components/navbar/Navbar";
+
 import Questions from "./questions/Questions";
-import Tags from "./tags/Tags";
 import Users from "./users/Users";
+import Login from "./users/pages/login/Login";
+import Signup from "./users/pages/login/Signup";
 import User from "./users/pages/User";
-import Login from "./users/pages/login/Login"
-import Signup from "./users/pages/login/Signup"
+import EditUser from "./users/pages/EditUser";
+import AccountRecovery from "./users/pages/login/AccountRecovery";
+import Ask from "./questions/pages/ask/Ask";
+import Question from "./questions/pages/Question";
+import EditQuestion from "./questions/pages/edit/EditQuestion";
+import Tags from "./tags/Tags";
+
+
 
 function App() {
-  const tempDomain = "http://localhost:3001";
-  const [users, setUsers] = useState([]);
+
   const [isLogin, setIsLogin] = useState(false);
   const setLogin = () => setIsLogin(!isLogin);
-
-
-  useEffect(() => {
-    getUser();
-  }, [])
-  const getUser = () => {
-    return fetch(tempDomain+`/users`)
-    .then((res) => res.json())
-    .then((data) => {
-      setUsers(data)
-    })
-  };
 
   return (
     <div>
     <Router>
       <Header isLogin={isLogin} setLogin={setLogin}/>
-      <Navbar />
       <Routes>
         <Route path="/" element={<Questions />} />
-        <Route path="/questions" element={<Questions />} />
-        <Route path="/tags" element={<Tags />} />
-        <Route path="/users" element={<Users domain={tempDomain}/>} />
-        <Route path="/users/:id/:user_nickname" element={<User users={users}/>}/>
+        <Route path="/users" element={<Users />} />
         <Route path="/users/login" element={<Login setLogin={setLogin}/>}/>
         <Route path="/users/sign-up" element={<Signup setLogin={setLogin} />}/>
-        <Route path="/dev1" /> {/* 코드 리뷰용 임시 루트1 */}
-        <Route path="/dev2" /> {/* 코드 리뷰용 임시 루트2 */}
-        <Route path="/dev3" /> {/* 코드 리뷰용 임시 루트3 */}
+        <Route path="/users/:id/:user_nickname" element={<User />}/>
+        <Route path="/users/edit/:id" element={<EditUser />}/>
+        <Route path="/users/account-recovery" element={<AccountRecovery />}/>
+        <Route path="/questions" element={<Questions />} />
+        <Route path="/questions/ask" element={<Ask />} />
+        <Route path="/questions/:question_id" element={<Question />} />
+        <Route path="/questions/edit/:question_id" element={<EditQuestion />} />
+        <Route path="/tags" element={<Tags />} />
       </Routes>
     </Router>
     </div>
