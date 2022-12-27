@@ -4,10 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import server.question.entity.Question;
-import server.user.entity.User;
 
 import javax.persistence.*;
-import java.util.Arrays;
 
 @Entity
 @Getter

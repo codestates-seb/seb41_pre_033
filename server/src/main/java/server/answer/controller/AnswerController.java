@@ -1,7 +1,6 @@
 package server.answer.controller;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.answer.dto.AnswerDto;
@@ -18,9 +17,8 @@ import javax.validation.constraints.Positive;
 @RestController
 @RequestMapping("/answers")
 public class AnswerController {
-    private static final int SIZE = 36;
-    private AnswerService answerService;
-    private AnswerMapper answerMapper;
+    private final AnswerService answerService;
+    private final AnswerMapper answerMapper;
     private final QuestionRepository questionRepository;
 
     public AnswerController(AnswerService answerService, AnswerMapper answerMapper,
@@ -36,7 +34,7 @@ public class AnswerController {
         Question targetQuestion = questionRepository.findByQuestionId(questionId);
         Answer answer = answerService.createAnswer(targetQuestion, answerMapper.answerPostToAnswer(requestBody));
 
-        return new ResponseEntity(
+        return new ResponseEntity<>(
                 new SingleResponseDto<>(answerMapper.answerToAnswerResponseDto(answer)),
                         HttpStatus.CREATED);
     }
