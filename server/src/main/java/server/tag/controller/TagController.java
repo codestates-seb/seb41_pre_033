@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import server.dto.MultiResponseDto;
-import server.tag.dto.TagDto;
 import server.tag.entity.Tag;
 import server.tag.mapper.TagMapper;
 import server.tag.service.TagService;
@@ -22,36 +21,33 @@ import java.util.List;
 @Validated
 public class TagController {
     private static final int SIZE = 36;
-    private TagService tagService;
-    private TagMapper tagMapper;
+    private final TagService tagService;
+    private final TagMapper tagMapper;
 
     public TagController(TagService tagService, TagMapper tagMapper) {
         this.tagService = tagService;
         this.tagMapper = tagMapper;
     }
 
-    @GetMapping("/tags")
-    public ResponseEntity getTags(@Positive @RequestParam int page){
-        Page<Tag> pageTags = tagService.findTags(page-1, SIZE);
+    @GetMapping
+    public ResponseEntity getTags(@Positive @RequestParam int page,
+                                  @RequestParam(required = false, defaultValue = "name")String tab){
+        Page<Tag> pageTags = tagService.findTags(page-1, SIZE, tab);
         List<Tag> tags = pageTags.getContent();
 
-        //Todo 정렬 기능 추가
-//
-//        return new ResponseEntity<>(
-//                new MultiResponseDto<>(tagMapper.tagsToTagResponseDtos(tags),pageTags),
-//                HttpStatus.OK);
-        return null;
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(tagMapper.tagsToTagResponses(tags),pageTags),
+                HttpStatus.OK);
     }
 
-    //Todo: search 기능 추가, 정렬
-    @GetMapping("/tags/search")
-    public ResponseEntity getSearchTags(@Positive @RequestParam int page,
-                                        @RequestParam String search){
-        List<Tag> tags = tagService.findTags();
-
+//    //Todo: search 기능 추가, 정렬
+//    @GetMapping("/search")
+//    public ResponseEntity getSearchTags(@Positive @RequestParam int page,
+//                                        @RequestParam String search){
+//        List<Tag> tags = tagService.findTags();
+//
 //        return new ResponseEntity<>(
 //                new MultiResponseDto<>(tagMapper.tagsToTagResponseDtos(tags)),
 //                HttpStatus.OK);
-        return null;
-    }
+//    }
 }

@@ -22,6 +22,9 @@ public class Tag {
     @Column(nullable = false)
     private String explanation;
 
+    @Column
+    private Integer used;
+
     @OneToMany(mappedBy = "tag",cascade = CascadeType.ALL)
     private List<QuestionTag> questionTags = new ArrayList<>();
 

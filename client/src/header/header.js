@@ -63,7 +63,7 @@ function Header({isLogin, setLogin}) {
         <FontAwesomeIcon className="three-bars" icon={faBars} />
       </div>
       <div id="mypage-dropdown">
-        {isMyPage && <MyPageDropDown isLogin={isLogin} setLogin={setLogin}/>}
+        {isMyPage && <MyPageDropDown setLogin={setLogin}/>}
       </div>
     </div> :
     <div id="not-login-body">

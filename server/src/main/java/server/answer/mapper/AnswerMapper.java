@@ -9,7 +9,7 @@ public interface AnswerMapper {
     Answer answerPostToAnswer(AnswerDto.Post requestBody);
     default AnswerDto.Response answerToAnswerResponseDto(Answer answer){
         if ( answer == null ) return null;
-        AnswerDto.Response response = AnswerDto.Response
+        return AnswerDto.Response
                 .builder()
                 .body(answer.getBody())
                 .accepted(answer.getAccepted())
@@ -18,7 +18,6 @@ public interface AnswerMapper {
                 .questionId(answer.getQuestion().getQuestionId())
                 .answerId(answer.getAnswerId())
                 .build();
-        return response;
     }
 
     default Answer patchAnswerDtoToAnswer(AnswerDto.PatchAnswer patchAnswerDto){
