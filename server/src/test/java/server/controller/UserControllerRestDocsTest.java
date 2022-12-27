@@ -1,11 +1,14 @@
 package server.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -19,14 +22,17 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import server.auth.userdetails.UsersDetailsService;
 import server.user.controller.UserController;
 import server.user.dto.UserDto;
 import server.user.entity.User;
 import server.user.mapper.UserMapper;
 import server.user.service.UserService;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.mockito.BDDMockito.given;
@@ -35,7 +41,8 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 //import static org.springframework.security.config.Customizer.withDefaults;
-//import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers.mockJwt;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -55,6 +62,9 @@ public class UserControllerRestDocsTest {
 
     @MockBean
     private UserMapper userMapper;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Test
     public void signUpTest() throws Exception {
@@ -116,6 +126,40 @@ public class UserControllerRestDocsTest {
                         )));
 
 //        System.out.println(result.getResponse().getContentAsString());
+    }
+
+    @Test
+    public void logInTest() throws Exception {
+        // given
+        HashMap<String, String> loginForm = new HashMap<>();
+        loginForm.put("username", "ggammancj@gmail.com");
+        loginForm.put("password", "1111");
+
+        // when
+        ResultActions actions =
+                mockMvc.perform(
+                        RestDocumentationRequestBuilders.post("/users/login")
+                                .accept(MediaType.APPLICATION_JSON)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(loginForm))
+                                .with(csrf())
+                );
+
+        ResultActions result = actions
+                .andExpect(status().isOk())
+                .andDo(document("login",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                                requestFields(
+                                        fieldWithPath("username").type(JsonFieldType.STRING).description("로그인 ID(이메일)"),
+                                        fieldWithPath("password").type(JsonFieldType.STRING).description("로그인 비밀번호")
+                                ),
+                                responseFields(
+                                        fieldWithPath("access_token").type(JsonFieldType.STRING).description("Access Token"),
+                                        fieldWithPath("refresh_token").type(JsonFieldType.STRING).description("Refresh Token")
+                                )
+                        )
+                );
     }
 
     @Test
