@@ -5,17 +5,15 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import server.answer.entity.Answer;
-import server.answer.service.AnswerService;
 import server.exception.BusinessLogicException;
 import server.exception.ExceptionCode;
 import server.question.entity.Question;
 import server.question.entity.QuestionTag;
 import server.question.repository.QuestionRepository;
 import server.question.repository.QuestionTagRepository;
+import server.tag.entity.Tag;
+import server.tag.repository.TagRepository;
 import server.tag.service.TagService;
-import server.user.entity.User;
-import server.user.repository.UserRepository;
 import server.user.service.UserService;
 
 import javax.transaction.Transactional;
@@ -30,30 +28,30 @@ public class QuestionService {
     private final UserService userService;
     private final QuestionRepository questionRepository;
     private final TagService tagService;
-
     private final QuestionTagRepository questionTagRepository;
-    private final UserRepository userRepository;
+    private final TagRepository tagRepository;
 
-    public QuestionService(UserService userService, QuestionRepository questionRepository, TagService tagService, AnswerService answerService, QuestionTagRepository questionTagRepository,
-                           UserRepository userRepository) {
+    public QuestionService(UserService userService, QuestionRepository questionRepository, TagService tagService, QuestionTagRepository questionTagRepository,
+                           TagRepository tagRepository) {
         this.userService = userService;
         this.questionRepository = questionRepository;
         this.tagService = tagService;
         this.questionTagRepository = questionTagRepository;
-        this.userRepository = userRepository;
+        this.tagRepository = tagRepository;
     }
 
     public Question createQuestion(Question question){
         verifyQuestion(question);
         question.setCreated(LocalDateTime.now());
-
-        //Todo: ref 에는 updateStamp 가 있는데, tag 나 answer 에 비슷한 처리를 해야하는가?
-
+        for (QuestionTag questionTag : question.getQuestionTags()) {
+            Tag tag = tagRepository.findByName(questionTag.getTag().getName()).orElseThrow();
+            if(tag.getUsed()==null) tag.setUsed(0);
+            tag.setUsed(tag.getUsed()+1);
+        }
         return saveQuestion(question);
     }
 
     public Question updateQuestion(Question question) {
-        // Todo : 바디에 담긴 user-id와 작성자를 비교하여 수정 가능/불가 설정
         Question findQuestion = findVerifiedQuestion(question.getQuestionId());
         if(!question.getUser().getUserId().equals(findQuestion.getUser().getUserId())){
             throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED);
@@ -63,12 +61,21 @@ public class QuestionService {
                 .ifPresent(findQuestion::setTitle);
         Optional.ofNullable(question.getBody())
                 .ifPresent(findQuestion::setBody);
-        Optional.ofNullable(question.getBounty())
+        Optional.of(question.getBounty())
                 .ifPresent(findQuestion::setBounty);
         if(Optional.ofNullable(question.getQuestionTags())
                 .isPresent()){
+            for (QuestionTag questionTag : findQuestion.getQuestionTags()) {
+                Tag tag = tagRepository.findByName(questionTag.getTag().getName()).orElseThrow();
+                tag.setUsed(tag.getUsed()-1);
+            }
             questionTagRepository.deleteAllByQuestion(findQuestion);
             findQuestion.setQuestionTags(question.getQuestionTags());
+            for (QuestionTag questionTag : findQuestion.getQuestionTags()) {
+                Tag tag = tagRepository.findByName(questionTag.getTag().getName()).orElseThrow();
+                if(tag.getUsed()==null) tag.setUsed(0);
+                tag.setUsed(tag.getUsed()+1);
+            }
         }
 
         return saveQuestion(findQuestion);
@@ -117,17 +124,14 @@ public class QuestionService {
         PageRequest pageRequest = PageRequest.of(page, size);
         int start = (int) pageRequest.getOffset();
         int end = Math.min((start + pageRequest.getPageSize()), questions.size());
-        Page<Question> questionPage = new PageImpl<>(questions.subList(start, end), pageRequest, questions.size());
 
-        return questionPage;
+        return new PageImpl<>(questions.subList(start, end), pageRequest, questions.size());
     }
 
     private Question findVerifiedQuestion(long questionId) {
         Optional<Question> optionalQuestion = questionRepository.findById(questionId);
-        Question findQuestion =
-                optionalQuestion.orElseThrow(() ->
-                        new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
-        return findQuestion;
+        return optionalQuestion.orElseThrow(() ->
+                new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
     }
 
     private void verifyQuestion(Question question){
@@ -155,10 +159,13 @@ public class QuestionService {
 
     public void deleteQuestion(long questionId) {
         Question findQuestion = findVerifiedQuestion(questionId);
-        List<Answer> answers = findQuestion.getAnswers();
 
-        if(answers.size()!=0){
+        if(findQuestion.getAnswers().size()!=0){
             throw new BusinessLogicException(ExceptionCode.CANNOT_DELETE_QUESTION);
+        }
+        for (QuestionTag questionTag : findQuestion.getQuestionTags()) {
+            Tag tag = tagRepository.findByName(questionTag.getTag().getName()).orElseThrow();
+            tag.setUsed(tag.getUsed()-1);
         }
         questionRepository.deleteById(findQuestion.getQuestionId());
     }
