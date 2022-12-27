@@ -1,15 +1,14 @@
 package server.tag.service;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import server.exception.BusinessLogicException;
 import server.exception.ExceptionCode;
 import server.tag.entity.Tag;
 import server.tag.repository.TagRepository;
 
-import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,21 +19,21 @@ public class TagService {
         this.tagRepository = tagRepository;
     }
 
-    public Page<Tag> findTags(int i, int size) {
-        return null;
+    public Page<Tag> findTags(int page, int size, String tab){
+        Page<Tag> result;
+        if ("popular".equals(tab)) {
+            result = tagRepository.findAll(PageRequest.of(page, size,
+                    Sort.by("used").descending()));
+        } else {
+            result = tagRepository.findAll(PageRequest.of(page, size,
+                    Sort.by("name").ascending()));
+        }
+        return result;
     }
 
-    public List<Tag> findTags(){
-        //Todo 해당 부분 수정 필요
-        List<Tag> tags = new ArrayList<>();
-        return tags;
-    }
-
-    public Tag findVerifiedTag(String name) {
+    public void findVerifiedTag(String name) {
         Optional<Tag> optionalTag = tagRepository.findByName(name);
-        Tag findTag =
                 optionalTag.orElseThrow(() ->
                         new BusinessLogicException(ExceptionCode.TAG_NOT_FOUND));
-        return findTag;
     }
 }
