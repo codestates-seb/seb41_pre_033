@@ -13,6 +13,9 @@ spring:
     properties:
       hibernate:
         format_sql: true  # (3) SQL pretty print
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 #  sql:
 #    init:
 #      data-locations: classpath*:db/h2/data.sql

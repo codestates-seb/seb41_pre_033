@@ -3,7 +3,6 @@ package server.user.controller;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import server.dto.MultiResponseDto;
 import server.dto.SingleResponseDto;
@@ -31,8 +30,8 @@ public class UserController {
 
 //    @PostMapping("/account-recovery")
 //    public String accountRecovery(@RequestBody MailDto mailDto) {
-//        // TODO: requestBody 에 email 이 입력되면 email 을 userRepository 에서 찾아서 응답을 보내주는 로직 필요
-//        // TODO: 사실 보안상으로는 존재하지 않는 이메일을 표시해주는 것보다 이메일을 보내는 데 성공했다고만 표시해주는 것이 좋다.
+        // TODO: requestBody 에 email 이 입력되면 email 을 userRepository 에서 찾아서 응답을 보내주는 로직 필요
+        // TODO: 사실 보안상으로는 존재하지 않는 이메일을 표시해주는 것보다 이메일을 보내는 데 성공했다고만 표시해주는 것이 좋다.
 //        mailService.mailSimpleSend(mailDto);
 //        return "account-recovery";
 //    }
