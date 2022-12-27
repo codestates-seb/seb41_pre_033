@@ -85,7 +85,7 @@ export default function Ask() {
 
   return (
     <div>
-      <h1>Ask a public question</h1>
+      <h1 className="">Ask a public question</h1>
       <Guide />
       <Title />
       <Problem />
