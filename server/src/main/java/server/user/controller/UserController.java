@@ -8,6 +8,7 @@ import server.dto.MultiResponseDto;
 import server.dto.SingleResponseDto;
 import server.user.dto.MailDto;
 import server.user.dto.UserDto;
+import server.user.dto.UserPasswordDto;
 import server.user.entity.User;
 import server.user.mapper.UserMapper;
 import server.user.service.UserService;
@@ -61,6 +62,19 @@ public class UserController {
         return new ResponseEntity<>(
                 new SingleResponseDto<>(userMapper.userToUserResponse(user))
                 , HttpStatus.OK);
+    }
+
+    @PatchMapping("/edit/{user-id}/change-password")
+    public ResponseEntity changePassword(@PathVariable("user-id") long userId,
+                                         @Valid @RequestBody UserPasswordDto requestBody) {
+        // TODO 비즈니스 로직 작성 필요
+        String currentPassword = requestBody.getCurrentPassword();
+        String newPassword = requestBody.getNewPassword();
+        String checkPassword = requestBody.getCheckPassword();
+
+        userService.updatePassword(userId, currentPassword, newPassword, checkPassword);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/{user-id}")

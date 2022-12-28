@@ -28,18 +28,15 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JavaMailSender mailSender;
-    private final TagRepository tagRepository;
 
 
 
     public UserService(UserRepository userRepository,
                        PasswordEncoder passwordEncoder,
-                       JavaMailSender mailSender,
-                       TagRepository tagRepository) {
+                       JavaMailSender mailSender) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.mailSender = mailSender;
-        this.tagRepository = tagRepository;
     }
 
     public User createUser(User user) {
@@ -107,6 +104,21 @@ public class UserService {
                 .ifPresent(findUser::setUserTags);
 
         return userRepository.save(findUser);
+    }
+
+    public void updatePassword(long userId, String currentPassword, String newPassword, String checkPassword) {
+        User findUser = findVerifiedUser(userId);
+
+        if (currentPassword.equals(newPassword)) {
+            throw new BusinessLogicException(ExceptionCode.SAME_PASSWORD);
+        }
+        if (!newPassword.equals(checkPassword)) {
+            throw new BusinessLogicException(ExceptionCode.DIFFERENT_PASSWORD);
+        }
+        String encryptedPassword = passwordEncoder.encode(newPassword);
+        findUser.setPassword(encryptedPassword);
+
+        userRepository.save(findUser);
     }
 
     public void deleteUser(long userId) {
