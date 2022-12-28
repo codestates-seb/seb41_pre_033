@@ -80,7 +80,10 @@ public class UserControllerRestDocsTest {
                 0,
                 "",
                 "",
-                "");
+                "",
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>());
 
         given(userMapper.userPostToUser(Mockito.any(UserDto.Post.class))).willReturn(new User());
 
@@ -172,7 +175,9 @@ public class UserControllerRestDocsTest {
 //                0,
                 "I'm find thank you and you?",
                 "King of Korea",
-                "https://chaning49.tistory.com/");
+                "https://chaning49.tistory.com/",
+                new ArrayList<>()
+                );
         String content = gson.toJson(patch);
 
         UserDto.Response responseDto = new UserDto.Response(
@@ -183,7 +188,10 @@ public class UserControllerRestDocsTest {
                 0,
                 "I'm find thank you and you?",
                 "King of Korea",
-                "https://chaning49.tistory.com/");
+                "https://chaning49.tistory.com/",
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>());
 
         given(userMapper.userPatchToUser(Mockito.any(UserDto.Patch.class))).willReturn(new User());
 
@@ -254,7 +262,10 @@ public class UserControllerRestDocsTest {
                 0,
                 "I'm find thank you and you?",
                 "King of Korea",
-                "https://chaning49.tistory.com/");
+                "https://chaning49.tistory.com/",
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>());
 
         given(userService.findUser(Mockito.anyLong())).willReturn(new User());
 
@@ -329,7 +340,10 @@ public class UserControllerRestDocsTest {
                 0,
                 "I'm find thank you and you?",
                 "King of Korea",
-                "https://chaning49.tistory.com/");
+                "https://chaning49.tistory.com/",
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>());
 
         UserDto.Response responseDto2 = new UserDto.Response(
                 2L,
@@ -339,7 +353,10 @@ public class UserControllerRestDocsTest {
                 0,
                 "Winter is coming soon!",
                 "Wordlcup Champion",
-                "https://messi.com/");
+                "https://messi.com/",
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>());
 
         List<UserDto.Response> responseDtos = new ArrayList<>(List.of(responseDto1, responseDto2));
 
