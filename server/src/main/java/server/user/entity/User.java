@@ -3,8 +3,12 @@ package server.user.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import server.answer.entity.Answer;
 
 import javax.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -40,4 +44,7 @@ public class User {
 
     @Column
     private String link;
+
+    @OneToMany(mappedBy = "user")
+    private List<Answer> answers = new ArrayList<>();
 }

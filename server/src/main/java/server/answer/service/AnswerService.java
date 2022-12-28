@@ -9,6 +9,7 @@ import server.question.entity.Question;
 import server.user.entity.User;
 import server.user.service.UserService;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -33,7 +34,7 @@ public class AnswerService {
 
     public Answer updateAnswer(Answer answer){
         Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
-        if(answer.getUserId()!=findAnswer.getUserId()) throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED);
+        if(!Objects.equals(answer.getUser().getUserId(), findAnswer.getUser().getUserId())) throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED);
         if(findAnswer.getAccepted()) throw new BusinessLogicException(ExceptionCode.CANNOT_MODIFY_ANSWER);
         Optional.ofNullable(answer.getBody())
                 .ifPresent(findAnswer::setBody);
@@ -50,7 +51,7 @@ public class AnswerService {
 
         // 자신이 작성한 답변에는 투표 불가
         Answer answer = findVerifiedAnswer(answerId);
-        if(findUser.getUserId()==answer.getUserId()) throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED);
+        if(Objects.equals(findUser.getUserId(), answer.getUser().getUserId())) throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED);
 
         Answer findAnswer = findVerifiedAnswer(answerId);
         int vote = (updown.equals("up"))? findAnswer.getVote()+1:findAnswer.getVote()-1;
@@ -85,6 +86,6 @@ public class AnswerService {
     }
 
     private void verifyAnswer(Answer answer) {
-        userService.findVerifiedUser(answer.getUserId());
+        userService.findVerifiedUser(answer.getUser().getUserId());
     }
 }

@@ -91,7 +91,7 @@ public interface QuestionMapper {
                         .body(answer.getBody())
                         .accepted(answer.getAccepted())
                         .vote(answer.getVote())
-                        .userId(answer.getUserId())
+                        .userId(answer.getUser().getUserId())
                         .questionId(answer.getQuestion().getQuestionId())
                         .answerId(answer.getAnswerId())
                         .build())
