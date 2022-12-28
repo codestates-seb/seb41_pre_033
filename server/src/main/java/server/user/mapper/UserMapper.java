@@ -9,6 +9,7 @@ import server.question.entity.Question;
 import server.question.entity.QuestionTag;
 import server.tag.entity.Tag;
 import server.user.dto.UserDto;
+import server.user.dto.UserPasswordDto;
 import server.user.dto.UserTagDto;
 import server.user.dto.UserTagResponseDto;
 import server.user.entity.User;
@@ -40,7 +41,6 @@ public interface UserMapper {
         user.setUserTags(userTags);
         return user;
     }
-
     default UserTag userTagDtoToUserTag(UserTagDto userTagDto) {
         UserTag userTag = new UserTag();
         Tag tag = new Tag();
