@@ -26,8 +26,6 @@ const User = () => {
         })
     };
 
-    const rep=oneUser.reputation;
-
     return (
     <div id="user-body">
         <div id="user-header">
@@ -49,7 +47,7 @@ const User = () => {
             <div className='user-menu-item' onClick={activityTab}>Activity</div>
         </div>
         <div id="user-content">
-            {tab==="profile" ? <ProfileTab rep={rep} about={oneUser.introduction} tags={oneUser.tags}/>:<ActivityTab/>}
+            {tab==="profile" ? <ProfileTab rep={oneUser.reputation} about={oneUser.introduction} tags={oneUser.tags}/>:<ActivityTab/>}
         </div>
     </div>
     )
