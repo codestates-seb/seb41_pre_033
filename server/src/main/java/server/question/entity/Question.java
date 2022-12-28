@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import server.answer.entity.Answer;
-import server.tag.entity.Tag;
 import server.user.entity.User;
 
 import javax.persistence.*;
@@ -46,9 +45,12 @@ public class Question {
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<QuestionTag> questionTags = new ArrayList<>();
-
+    // 유저 - 태그 N:N
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Answer> answers = new ArrayList<>();
+    // 유저 - 질문 1:N
+    // 유저 - 답변 1:N
+
 
     public void addQuestionTags(QuestionTag questionTag) {
         this.questionTags.add(questionTag);

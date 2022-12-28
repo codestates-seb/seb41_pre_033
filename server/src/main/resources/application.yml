@@ -13,6 +13,21 @@ spring:
     properties:
       hibernate:
         format_sql: true  # (3) SQL pretty print
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ggammancj@gmail.com
+    password: ckneqcxipnfurbgb
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
 #  sql:
 #    init:
 #      data-locations: classpath*:db/h2/data.sql

@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface QuestionMapper {
-    default Question questionPostDtoToQuestion(QuestionDto.Post questionPostDto) {
+    default Question questionPostDtoToQuestion(QuestionDto.PostQuestion questionPostDto) {
         Question question = new Question();
         User user = new User();
         user.setUserId(questionPostDto.getUserId());
@@ -59,11 +59,11 @@ public interface QuestionMapper {
         return question;
     }
 
-    default QuestionDto.Response questionToQuestionResponseDto(Question question) {
+    default QuestionDto.ResponseQ questionToQuestionResponseDto(Question question) {
         List<QuestionTag> questionTags = question.getQuestionTags();
         List<Answer> answers = question.getAnswers();
 
-        QuestionDto.Response questionResponseDto = new QuestionDto.Response();
+        QuestionDto.ResponseQ questionResponseDto = new QuestionDto.ResponseQ();
         questionResponseDto.setQuestionId(question.getQuestionId());
         questionResponseDto.setUserId(question.getUser());
         questionResponseDto.setNickname(question.getUser().getNickname());
@@ -91,7 +91,7 @@ public interface QuestionMapper {
                         .body(answer.getBody())
                         .accepted(answer.getAccepted())
                         .vote(answer.getVote())
-                        .userId(answer.getUserId())
+                        .userId(answer.getUser().getUserId())
                         .questionId(answer.getQuestion().getQuestionId())
                         .answerId(answer.getAnswerId())
                         .build())
@@ -109,5 +109,5 @@ public interface QuestionMapper {
                 .collect(Collectors.toList());
     }
 
-    List<QuestionDto.Response> questionsToQuestionResponseDtos(List<Question> questions);
+    List<QuestionDto.ResponseQ> questionsToQuestionResponseDtos(List<Question> questions);
 }

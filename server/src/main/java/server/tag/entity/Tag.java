@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import server.question.entity.QuestionTag;
+import server.user.entity.UserTag;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -22,8 +23,14 @@ public class Tag {
     @Column(nullable = false)
     private String explanation;
 
+    @Column
+    private Integer used;
+
     @OneToMany(mappedBy = "tag",cascade = CascadeType.ALL)
     private List<QuestionTag> questionTags = new ArrayList<>();
+
+    @OneToMany(mappedBy = "tag", cascade = CascadeType.ALL)
+    private List<UserTag> userTags = new ArrayList<>();
 
     public void addQuestionTag(QuestionTag questionTag) {
         this.questionTags.add(questionTag);
@@ -32,10 +39,10 @@ public class Tag {
         }
     }
 
-//    public void addUserTag(UserTag userTag){
-//        this.questionTags.add(userTag);
-//        if(userTag.getTag() != this){
-//            userTag.addTag(this);
-//        }
-//    }
+    public void addUserTag(UserTag userTag) {
+        this.userTags.add(userTag);
+        if(userTag.getTag() != this) {
+            userTag.addTag(this);
+        }
+    }
 }

@@ -23,10 +23,17 @@ function App() {
 
   return (
     <div>
+<<<<<<< HEAD
     <Router>
       <Header isLogin={isLogin} setLogin={setLogin}/>
       <Routes>
         {/* <Route path="/" element={<Questions />} />
+=======
+      <Router>
+        <Header isLogin={isLogin} setLogin={setLogin} />
+        <Routes>
+          {/* <Route path="/" element={<Questions />} />
+>>>>>>> a343c5aef05809dac2273e669001498b8082da35
         <Route path="/users" element={<Users />} />
         <Route path="/users/login" element={<Login setLogin={setLogin}/>}/>
         <Route path="/users/sign-up" element={<Signup setLogin={setLogin} />}/>
@@ -38,8 +45,13 @@ function App() {
         <Route path="/questions/:question_id" element={<Question />} />
         <Route path="/questions/edit/:question_id" element={<EditQuestion />} />
         <Route path="/tags" element={<Tags />} /> */}
+<<<<<<< HEAD
       </Routes>
     </Router>
+=======
+        </Routes>
+      </Router>
+>>>>>>> a343c5aef05809dac2273e669001498b8082da35
     </div>
   );
 }

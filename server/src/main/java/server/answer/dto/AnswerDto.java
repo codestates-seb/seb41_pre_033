@@ -2,12 +2,11 @@ package server.answer.dto;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 public class AnswerDto {
     @Getter
-    public static class Post{
+    public static class PostAnswer{
         private Long userId;
         private String body;
     }

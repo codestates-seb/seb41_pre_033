@@ -6,24 +6,21 @@ import server.answer.repository.AnswerRepository;
 import server.exception.BusinessLogicException;
 import server.exception.ExceptionCode;
 import server.question.entity.Question;
-import server.question.repository.QuestionRepository;
 import server.user.entity.User;
 import server.user.service.UserService;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
 public class AnswerService {
     UserService userService;
     private final AnswerRepository answerRepository;
-    private final QuestionRepository questionRepository;
 
     public AnswerService(UserService userService,
-                         AnswerRepository answerRepository,
-                         QuestionRepository questionRepository) {
+                         AnswerRepository answerRepository) {
         this.userService = userService;
         this.answerRepository = answerRepository;
-        this.questionRepository = questionRepository;
     }
 
     public Answer createAnswer(Question targetQuestion, Answer answer){
@@ -32,13 +29,12 @@ public class AnswerService {
         answer.setAccepted(false);
         answer.setVote(0);
         verifyAnswer(answer);
-        Answer savedAnswer = saveAnswer(answer);
-        return savedAnswer;
+        return saveAnswer(answer);
     }
 
     public Answer updateAnswer(Answer answer){
         Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
-        if(answer.getUserId()!=findAnswer.getUserId()) throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED);
+        if(!Objects.equals(answer.getUser().getUserId(), findAnswer.getUser().getUserId())) throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED);
         if(findAnswer.getAccepted()) throw new BusinessLogicException(ExceptionCode.CANNOT_MODIFY_ANSWER);
         Optional.ofNullable(answer.getBody())
                 .ifPresent(findAnswer::setBody);
@@ -50,7 +46,12 @@ public class AnswerService {
 //        Todo: 투표한 유저의 vote 증가
 //        User voteUser = userRepository.findById(userId).orElseThrow();
 //        voteUser.setVote(voteUser.getVote()+1);
-        userService.findVerifiedUser(userId);
+        // 존재하는 회원인지 검증
+        User findUser = userService.findVerifiedUser(userId);
+
+        // 자신이 작성한 답변에는 투표 불가
+        Answer answer = findVerifiedAnswer(answerId);
+        if(Objects.equals(findUser.getUserId(), answer.getUser().getUserId())) throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED);
 
         Answer findAnswer = findVerifiedAnswer(answerId);
         int vote = (updown.equals("up"))? findAnswer.getVote()+1:findAnswer.getVote()-1;
@@ -76,10 +77,8 @@ public class AnswerService {
 
     private Answer findVerifiedAnswer(Long answerId) {
         Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
-        Answer findAnswer =
-                optionalAnswer.orElseThrow(()->
-                        new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
-        return findAnswer;
+        return optionalAnswer.orElseThrow(()->
+                new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
     }
 
     private Answer saveAnswer(Answer answer) {
@@ -87,6 +86,6 @@ public class AnswerService {
     }
 
     private void verifyAnswer(Answer answer) {
-        userService.findVerifiedUser(answer.getUserId());
+        userService.findVerifiedUser(answer.getUser().getUserId());
     }
 }

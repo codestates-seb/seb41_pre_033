@@ -1,5 +1,6 @@
 package server.question.controller;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,11 +29,14 @@ public class QuestionController {
     }
 
     @PostMapping("/ask")
-    public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post questionPostDto) {
-        Question question = questionService.createQuestion(questionMapper.questionPostDtoToQuestion(questionPostDto));
+    @ApiOperation(value = "질문 등록",notes = "질문을 등록한다.")
+    public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.PostQuestion questionPostDto) {
+//        Question question = questionService.createQuestion(questionMapper.questionPostDtoToQuestion(questionPostDto));
+        Question question = questionMapper.questionPostDtoToQuestion(questionPostDto);
+        Question createdQuestion = questionService.createQuestion(question);
 
         return new ResponseEntity<>(
-                new SingleResponseDto<>(questionMapper.questionToQuestionResponseDto(question)), HttpStatus.CREATED);
+                new SingleResponseDto<>(questionMapper.questionToQuestionResponseDto(createdQuestion)), HttpStatus.CREATED);
     }
 
     @PatchMapping("/edit/{question-id}")
@@ -51,7 +55,7 @@ public class QuestionController {
     @PatchMapping("/edit/{question-id}/vote")
     public ResponseEntity patchQuestionVote(@PathVariable("question-id") long questionId,
                                             @RequestParam String updown,
-                                            @RequestBody QuestionDto.PatchVote votePatchDto){
+                                            @RequestBody QuestionDto.PatchQuestionVote votePatchDto){
         votePatchDto.setQuestionId(questionId);
         Question question =
                 questionService.updateVote(votePatchDto.getQuestionId(),votePatchDto.getUserId(),updown);

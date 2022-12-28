@@ -1,11 +1,14 @@
 package server.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -19,14 +22,17 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import server.auth.userdetails.UsersDetailsService;
 import server.user.controller.UserController;
 import server.user.dto.UserDto;
 import server.user.entity.User;
 import server.user.mapper.UserMapper;
 import server.user.service.UserService;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.mockito.BDDMockito.given;
@@ -35,7 +41,8 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 //import static org.springframework.security.config.Customizer.withDefaults;
-//import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers.mockJwt;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -56,6 +63,9 @@ public class UserControllerRestDocsTest {
     @MockBean
     private UserMapper userMapper;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @Test
     public void signUpTest() throws Exception {
         // given
@@ -70,7 +80,10 @@ public class UserControllerRestDocsTest {
                 0,
                 "",
                 "",
-                "");
+                "",
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>());
 
         given(userMapper.userPostToUser(Mockito.any(UserDto.Post.class))).willReturn(new User());
 
@@ -119,6 +132,40 @@ public class UserControllerRestDocsTest {
     }
 
     @Test
+    public void logInTest() throws Exception {
+        // given
+        HashMap<String, String> loginForm = new HashMap<>();
+        loginForm.put("username", "ggammancj@gmail.com");
+        loginForm.put("password", "1111");
+
+        // when
+        ResultActions actions =
+                mockMvc.perform(
+                        RestDocumentationRequestBuilders.post("/users/login")
+                                .accept(MediaType.APPLICATION_JSON)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(loginForm))
+                                .with(csrf())
+                );
+
+        ResultActions result = actions
+                .andExpect(status().isOk())
+                .andDo(document("login",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                                requestFields(
+                                        fieldWithPath("username").type(JsonFieldType.STRING).description("로그인 ID(이메일)"),
+                                        fieldWithPath("password").type(JsonFieldType.STRING).description("로그인 비밀번호")
+                                ),
+                                responseFields(
+                                        fieldWithPath("access_token").type(JsonFieldType.STRING).description("Access Token"),
+                                        fieldWithPath("refresh_token").type(JsonFieldType.STRING).description("Refresh Token")
+                                )
+                        )
+                );
+    }
+
+    @Test
     public void editUserTest() throws Exception{
         long userId = 1L;
         UserDto.Patch patch = new UserDto.Patch(
@@ -128,7 +175,9 @@ public class UserControllerRestDocsTest {
 //                0,
                 "I'm find thank you and you?",
                 "King of Korea",
-                "https://chaning49.tistory.com/");
+                "https://chaning49.tistory.com/",
+                new ArrayList<>()
+                );
         String content = gson.toJson(patch);
 
         UserDto.Response responseDto = new UserDto.Response(
@@ -139,7 +188,10 @@ public class UserControllerRestDocsTest {
                 0,
                 "I'm find thank you and you?",
                 "King of Korea",
-                "https://chaning49.tistory.com/");
+                "https://chaning49.tistory.com/",
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>());
 
         given(userMapper.userPatchToUser(Mockito.any(UserDto.Patch.class))).willReturn(new User());
 
@@ -210,7 +262,10 @@ public class UserControllerRestDocsTest {
                 0,
                 "I'm find thank you and you?",
                 "King of Korea",
-                "https://chaning49.tistory.com/");
+                "https://chaning49.tistory.com/",
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>());
 
         given(userService.findUser(Mockito.anyLong())).willReturn(new User());
 
@@ -285,7 +340,10 @@ public class UserControllerRestDocsTest {
                 0,
                 "I'm find thank you and you?",
                 "King of Korea",
-                "https://chaning49.tistory.com/");
+                "https://chaning49.tistory.com/",
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>());
 
         UserDto.Response responseDto2 = new UserDto.Response(
                 2L,
@@ -295,7 +353,10 @@ public class UserControllerRestDocsTest {
                 0,
                 "Winter is coming soon!",
                 "Wordlcup Champion",
-                "https://messi.com/");
+                "https://messi.com/",
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>());
 
         List<UserDto.Response> responseDtos = new ArrayList<>(List.of(responseDto1, responseDto2));
 

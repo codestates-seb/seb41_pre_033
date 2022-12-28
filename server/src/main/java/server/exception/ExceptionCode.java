@@ -12,7 +12,9 @@ public enum ExceptionCode {
     CANNOT_DELETE_ANSWER(403, "Accepted answer can not be deleted" ),
     ACCESS_DENIED(401, "Access denied"),
     USER_NOT_FOUND(404, "User not found"),
-    USER_EXISTS(409, "User exists");
+    USER_EXISTS(409, "User exists"),
+    SAME_PASSWORD(400, "Current Password and New Password must be different"),
+    DIFFERENT_PASSWORD(400, "New Password and Check Password must be the same");
     
 
     @Getter
