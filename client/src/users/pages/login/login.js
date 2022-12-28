@@ -3,42 +3,45 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './login.css';
 
-function Login ({setLogin, domain}) {
+function Login ({setLogin}) {
     const [formValue, setformValue] = useState({
         username: '',
         password: ''
       });
-    
-      const handleSubmit = async() => {
-        const loginFormData = new FormData();
-        loginFormData.append("username", formValue.username)
-        loginFormData.append("password", formValue.password)
-
-        try {
-        // make axios post request
-            const response = await axios({
-                method: "post",
-                url: domain+"/users/login",
-                data: loginFormData,
-                headers: { "Content-Type": "multipart/form-data" },
-            });
-            console.log(response);
-        } catch(error) {
-          console.log(error)
-        }
-      }
-    
       const handleChange = (event) => {
         setformValue({
           ...formValue,
           [event.target.name]: event.target.value
         });
       }
+    
+      const handleSubmit = async() => {
+        const loginFormData = new FormData();
+        loginFormData.append("username", formValue.username)
+        loginFormData.append("password", formValue.password)
+
+        axios.post(`http://localhost:3001/users/login`, loginFormData)
+            .then( response => {
+                console.log('response : ', JSON.stringify(response, null, 2))
+            }).catch( error => {
+                console.log('failed', error)
+            })
+
+    //     try {
+    //     // make axios post request
+    //         const response = await axios({
+    //             method: "post",
+    //             url: domain+"/users/login",
+    //             data: loginFormData,
+    //             headers: { "Content-Type": "multipart/form-data" },
+    //         });
+    //     } catch(error) {
+    //       console.log(error)
+    //     }
+        }
 
 
     const changeLogin = () => {
-        console.log("eyy logged in")
-        console.log(formValue);
         setLogin()};
 
     return (

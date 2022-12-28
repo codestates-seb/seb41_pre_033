@@ -26,7 +26,7 @@ function App() {
     <Router>
       <Header isLogin={isLogin} setLogin={setLogin}/>
       <Routes>
-        <Route path="/" element={<Questions />} />
+        {/* <Route path="/" element={<Questions />} />
         <Route path="/users" element={<Users />} />
         <Route path="/users/login" element={<Login setLogin={setLogin}/>}/>
         <Route path="/users/sign-up" element={<Signup setLogin={setLogin} />}/>
@@ -37,7 +37,7 @@ function App() {
         <Route path="/questions/ask" element={<Ask />} />
         <Route path="/questions/:question_id" element={<Question />} />
         <Route path="/questions/edit/:question_id" element={<EditQuestion />} />
-        <Route path="/tags" element={<Tags />} />
+        <Route path="/tags" element={<Tags />} /> */}
       </Routes>
     </Router>
     </div>
