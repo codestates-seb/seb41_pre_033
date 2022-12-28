@@ -75,7 +75,7 @@ public class UserDto {
 
         private List<UserTagResponseDto> userTags;
 
-        private List<QuestionDto.Response> questions;
+        private List<QuestionDto.ResponseQ> questions;
 
         private List<AnswerDto.Response> answers;
     }

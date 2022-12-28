@@ -88,11 +88,11 @@ public interface UserMapper {
     }
 
     // Question for userToUserResponse
-    default List<QuestionDto.Response> questionToUserTagResponseDtos(List<Question> questions) {
+    default List<QuestionDto.ResponseQ> questionToUserTagResponseDtos(List<Question> questions) {
         return questions
                 .stream()
                 .map(question -> {
-                    QuestionDto.Response question1 = new QuestionDto.Response();
+                    QuestionDto.ResponseQ question1 = new QuestionDto.ResponseQ();
                     question1.setQuestionId(question.getQuestionId());
                     question1.setTitle(question.getTitle());
                     question1.setBody(question.getBody());
