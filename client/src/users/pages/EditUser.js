@@ -1,7 +1,7 @@
 export const EditUser = () => {
     return (
         <div>
-            edit
+            <div>edit</div>
         </div>
     );
 }
