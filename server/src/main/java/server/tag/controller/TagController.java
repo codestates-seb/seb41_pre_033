@@ -1,5 +1,8 @@
 package server.tag.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +18,7 @@ import server.tag.service.TagService;
 
 import javax.validation.constraints.Positive;
 import java.util.List;
-
+@Api(tags = { "Tag Controller" })
 @RestController
 @RequestMapping("/tags")
 @Validated
@@ -29,9 +32,10 @@ public class TagController {
         this.tagMapper = tagMapper;
     }
 
+    @ApiOperation(value = "전체 태그 조회", notes = "page 번호와 정렬 기준을 tab으로 받아서 기본은 이름순, 다른 옵션으로는 used를 기준으로 정렬하여 페이지네이션을 응답으로 반환한다.")
     @GetMapping
-    public ResponseEntity getTags(@Positive @RequestParam int page,
-                                  @RequestParam(required = false, defaultValue = "name")String tab){
+    public ResponseEntity getTags(@ApiParam(value = "page 번호 입력") @Positive @RequestParam int page,
+                                  @ApiParam(value = "name(default), used 중 하나를 선택해서 입력") @RequestParam(required = false, defaultValue = "name")String tab){
         Page<Tag> pageTags = tagService.findTags(page-1, SIZE, tab);
         List<Tag> tags = pageTags.getContent();
 
