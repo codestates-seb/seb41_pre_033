@@ -7,7 +7,7 @@ import server.user.entity.User;
 
 @Mapper(componentModel = "spring")
 public interface AnswerMapper {
-    default Answer answerPostToAnswer(AnswerDto.Post requestBody){
+    default Answer answerPostToAnswer(AnswerDto.PostAnswer requestBody){
         if ( requestBody == null ) return null;
         Answer answer = new Answer();
         User user = new User();
@@ -32,6 +32,8 @@ public interface AnswerMapper {
 
     default Answer patchAnswerDtoToAnswer(AnswerDto.PatchAnswer patchAnswerDto){
         Answer answer = new Answer();
+        User user = new User();
+        answer.setUser(user);
         answer.getUser().setUserId(patchAnswerDto.getUserId());
         answer.setBody(patchAnswerDto.getBody());
         answer.setAnswerId(patchAnswerDto.getAnswerId());
