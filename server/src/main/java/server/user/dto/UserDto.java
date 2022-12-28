@@ -54,7 +54,7 @@ public class UserDto {
 
         private String email;
 
-        private String password;
+//        private String password;
 
         private String country;
 
