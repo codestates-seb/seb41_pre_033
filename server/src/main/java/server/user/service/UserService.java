@@ -7,9 +7,17 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import server.answer.repository.AnswerRepository;
+import server.answer.service.AnswerService;
 import server.exception.BusinessLogicException;
 import server.exception.ExceptionCode;
+import server.question.repository.QuestionRepository;
+import server.question.service.QuestionService;
+import server.tag.entity.Tag;
+import server.tag.repository.TagRepository;
+import server.tag.service.TagService;
 import server.user.entity.User;
+import server.user.entity.UserTag;
 import server.user.repository.UserRepository;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -20,16 +28,23 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JavaMailSender mailSender;
+    private final TagRepository tagRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JavaMailSender mailSender) {
+
+
+    public UserService(UserRepository userRepository,
+                       PasswordEncoder passwordEncoder,
+                       JavaMailSender mailSender,
+                       TagRepository tagRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.mailSender = mailSender;
+        this.tagRepository = tagRepository;
     }
 
     public User createUser(User user) {
         verifyExistsEmail(user.getEmail());
-
+        user.setReputation(0);
         // Password 암호화
         String encryptedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encryptedPassword);
@@ -88,6 +103,8 @@ public class UserService {
                 .ifPresent(findUser::setIntroduction);
         Optional.ofNullable(user.getLink())
                 .ifPresent(findUser::setLink);
+        Optional.ofNullable(user.getUserTags())
+                .ifPresent(findUser::setUserTags);
 
         return userRepository.save(findUser);
     }
