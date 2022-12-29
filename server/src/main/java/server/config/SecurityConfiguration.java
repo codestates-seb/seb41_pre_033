@@ -18,6 +18,7 @@ import java.util.Arrays;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
+// 원하는 인증 방식과 웹 페이지에 대한 접근 권한 설정
 @Configuration
 public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
@@ -26,13 +27,15 @@ public class SecurityConfiguration {
         this.jwtTokenizer = jwtTokenizer;
     }
 
+    // HttpSecurity를 통해 HTTP 요청에 대한 보안 설정을 구성한다.
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .headers().frameOptions().sameOrigin()
                 .and()
                 .csrf().disable()
-                .cors(withDefaults())
+                .cors()
+                .and()
                 .formLogin().disable()
                 .httpBasic().disable()
                 .apply(new CustomFilterConfigurer())
@@ -43,6 +46,7 @@ public class SecurityConfiguration {
         return http.build();
     }
 
+    //
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();

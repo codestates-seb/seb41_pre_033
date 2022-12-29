@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+// 클라이언트의 로그인 인증 요청을 처리한다.
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenizer jwtTokenizer;
@@ -32,12 +33,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) {
 
         ObjectMapper objectMapper = new ObjectMapper();
-        LoginDto loginDto = objectMapper.readValue(request.getInputStream(), LoginDto.class);
+        LoginDto loginDto = objectMapper.readValue(request.getInputStream(), LoginDto.class); // 역직렬화
 
         UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
+                new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword()); // 입력받은 ID, PW로 UsernamePasswordAuthenticationToken 생성
 
-        return authenticationManager.authenticate(authenticationToken);
+        return authenticationManager.authenticate(authenticationToken); // AuthenticationManager에게 전달하면서 인증 처리를 위임
     }
 
     // 인증 성공시 호출
