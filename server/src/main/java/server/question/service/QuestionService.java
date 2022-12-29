@@ -120,8 +120,22 @@ public class QuestionService {
                 .filter(qt -> qt.getTag().getName().equals(tagName))
                 .map(QuestionTag::getQuestion)
                 .collect(Collectors.toList());
-
-        PageRequest pageRequest = PageRequest.of(page, size);
+//        newest, bountied, unanswered
+        PageRequest pageRequest;
+        switch (tab) {
+            case "bountied":
+                pageRequest = PageRequest.of(page, size,
+                        Sort.by("bounty").descending());
+                break;
+            case "unanswered":
+                pageRequest = PageRequest.of(page, size,
+                        Sort.by("answers").ascending());
+                break;
+            default:
+                pageRequest = PageRequest.of(page, size,
+                        Sort.by("questionId").descending());
+                break;
+        }
         int start = (int) pageRequest.getOffset();
         int end = Math.min((start + pageRequest.getPageSize()), questions.size());
 
@@ -157,8 +171,10 @@ public class QuestionService {
     }
 
 
-    public void deleteQuestion(long questionId) {
+    public void deleteQuestion(long questionId, long userId) {
         Question findQuestion = findVerifiedQuestion(questionId);
+
+        if(findQuestion.getUser().getUserId()!=userId) throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED);
 
         if(findQuestion.getAnswers().size()!=0){
             throw new BusinessLogicException(ExceptionCode.CANNOT_DELETE_QUESTION);

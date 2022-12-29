@@ -69,8 +69,11 @@ public class AnswerService {
         return saveAnswer(findAnswer);
     }
 
-    public void deleteAnswer(long answerId) {
+    public void deleteAnswer(long answerId, long userId) {
         Answer findAnswer = findVerifiedAnswer(answerId);
+
+        if (findAnswer.getUser().getUserId()!=userId) throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED);
+
         if(findAnswer.getAccepted()) throw new BusinessLogicException(ExceptionCode.CANNOT_DELETE_ANSWER);
         answerRepository.deleteById(findAnswer.getAnswerId());
     }
