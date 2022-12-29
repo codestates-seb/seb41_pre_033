@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import server.auth.dto.LoginDto;
 import server.dto.MultiResponseDto;
 import server.dto.SingleResponseDto;
 import server.user.dto.MailDto;
@@ -54,9 +55,13 @@ public class UserController {
                 HttpStatus.CREATED
         );
     }
+    @ApiOperation(value = "로그인", notes = "이메일과 비밀번호를 입력하면 인증을 거쳐 로그인된다.")
+    @PostMapping("/login")
+    public void login(@RequestBody LoginDto requestBody) {
+        // TODO: email, password 입력을 받고 둘 다 기존 userRepository 의 내용과 일치하면 정상 응답, 아닌 경우는 예외 처리
+        // TODO: login 은 config 패키지의 SecurityConfiguration 이 담당한다.
+    }
 
-    // TODO: email, password 입력을 받고 둘 다 기존 userRepository 의 내용과 일치하면 정상 응답, 아닌 경우는 예외 처리
-    // TODO: login 은 config 패키지의 SecurityConfiguration 이 담당한다.
 
     @ApiOperation(value = "회원 정보 수정", notes = "닉네임, 국가, 소제목, 자기소개, 개인 사이트 링크, 태그 중 변경하고 싶은 정보를 수정할 수 있다.")
     @PatchMapping("/edit/{user-id}")

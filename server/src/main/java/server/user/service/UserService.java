@@ -11,13 +11,7 @@ import server.answer.repository.AnswerRepository;
 import server.answer.service.AnswerService;
 import server.exception.BusinessLogicException;
 import server.exception.ExceptionCode;
-import server.question.repository.QuestionRepository;
-import server.question.service.QuestionService;
-import server.tag.entity.Tag;
-import server.tag.repository.TagRepository;
-import server.tag.service.TagService;
 import server.user.entity.User;
-import server.user.entity.UserTag;
 import server.user.repository.UserRepository;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +22,6 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JavaMailSender mailSender;
-
 
 
     public UserService(UserRepository userRepository,
@@ -48,7 +41,6 @@ public class UserService {
 
         return userRepository.save(user);
     }
-
     public void sendMail(String email) {
         String tempPassword = getTempPassword();
 
