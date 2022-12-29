@@ -1,0 +1,35 @@
+.user-item-container {
+    border: 1px solid grey;
+    margin: 2rem;
+    float:left;
+}
+ul {
+    list-style: none;
+}
+.user-pfp {
+    padding: 1.5rem;
+    background-color: darkblue;
+    color: white;
+    border-radius: 1rem;
+    height: 4rem;
+    width: 4rem;
+    margin-right: 1rem;
+    text-align: center;
+    align-items: center;
+    font-weight: bold;
+}
+.user-item-wrapper {
+    display: flex;
+    flex-direction: row;
+    height: 5rem;
+    width: 15rem;
+    justify-items: left;
+    align-items: center;
+    padding: 3.5rem 1.2rem;
+}
+.user-name {
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+    margin:0.2rem;
+}

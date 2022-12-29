@@ -1,0 +1,43 @@
+.Navbar {
+    height: 100%;
+    width: 250px;
+    background-color: orange;
+    margin: 0;
+    padding: 0;
+}
+
+.NavbarList {
+    height: auto;
+    padding: 0;
+    width: 100%;
+}
+
+.NavbarList .row {
+    width: 100%;
+    height: 60px;
+    background-color: white;
+    list-style-type: none;
+    margin: 0%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.NavbarList #active {
+    font-weight: bold;
+    background-color: gray;
+    border-right: 3px solid orange;
+    color: white;
+}
+
+.row #icon {
+    flex: 30%;
+    display: grid;
+    place-items: center;
+}
+
+.row #title {
+    flex: 70%;
+}

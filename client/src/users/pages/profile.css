@@ -1,0 +1,38 @@
+* {
+    box-sizing: border-box;
+}
+#stats-container {
+    padding: 2rem;
+    border: 1px solid grey;
+    font-size: 1.4rem;
+    margin: 0.5rem 0;
+}
+#profile-wrapper {
+    display: flex;
+    flex-direction: row;
+    padding: 2rem;
+}
+.tag-list-item {
+    border: 1px solid lightgray;
+    padding: 1rem;
+    font-size: 1.4rem;
+}
+.mini-title {
+    font-size: 2rem;
+    font-weight: bold;
+}
+#about-container {
+    border: 1px solid lightgray;
+    margin: 2rem 0;
+    padding: 2rem;
+    font-size: 1.4rem;
+}
+.profile-container {
+    border: 1px solid grey;
+    padding: 2rem;
+    font-size: 1.4rem;
+}
+#activity-wrapper {
+    display: flex;
+    float: left;
+}
