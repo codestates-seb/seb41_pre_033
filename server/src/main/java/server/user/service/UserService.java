@@ -11,13 +11,7 @@ import server.answer.repository.AnswerRepository;
 import server.answer.service.AnswerService;
 import server.exception.BusinessLogicException;
 import server.exception.ExceptionCode;
-import server.question.repository.QuestionRepository;
-import server.question.service.QuestionService;
-import server.tag.entity.Tag;
-import server.tag.repository.TagRepository;
-import server.tag.service.TagService;
 import server.user.entity.User;
-import server.user.entity.UserTag;
 import server.user.repository.UserRepository;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +22,6 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JavaMailSender mailSender;
-
 
 
     public UserService(UserRepository userRepository,
@@ -48,7 +41,6 @@ public class UserService {
 
         return userRepository.save(user);
     }
-
     public void sendMail(String email) {
         String tempPassword = getTempPassword();
 
@@ -60,11 +52,11 @@ public class UserService {
         findUser.setPassword(passwordEncoder.encode(tempPassword));
 
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("no_reply@chaning.com");
+        message.setFrom("no_reply@stackoverflow033.com");
         message.setTo(email);
         message.setSubject("[Stackoverflow] 임시 비밀번호 안내입니다.");
         message.setText(
-                "귀하의 임시 비밀번호는 " + tempPassword + "입니다. \n알아서 변경하세요. ^_^"
+                "귀하의 임시 비밀번호는 " + tempPassword + "입니다. \n해당 비밀번호로 로그인하세요."
         );
         mailSender.send(message);
     }

@@ -1,5 +1,6 @@
 package server.answer.controller;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,7 @@ import server.question.repository.QuestionRepository;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
-
+@Api(tags = { "Answer Controller" })
 @RestController
 @RequestMapping("/answers")
 public class AnswerController {
