@@ -52,11 +52,11 @@ public class UserService {
         findUser.setPassword(passwordEncoder.encode(tempPassword));
 
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("no_reply@chaning.com");
+        message.setFrom("no_reply@stackoverflow033.com");
         message.setTo(email);
         message.setSubject("[Stackoverflow] 임시 비밀번호 안내입니다.");
         message.setText(
-                "귀하의 임시 비밀번호는 " + tempPassword + "입니다. \n알아서 변경하세요. ^_^"
+                "귀하의 임시 비밀번호는 " + tempPassword + "입니다. \n해당 비밀번호로 로그인하세요."
         );
         mailSender.send(message);
     }
