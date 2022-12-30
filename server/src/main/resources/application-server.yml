@@ -1,0 +1,53 @@
+spring:
+  config:
+    activate:
+      on-profile: server
+    import: 'aws-parameterstore:'
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${jdbc.url}
+    username: ${jdbc.username}
+    password: ${jdbc.password}
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: update  # create, update, validate, none
+    show-sql: true      # (2) SQL 쿼리 출력
+    properties:
+      hibernate:
+        format_sql: true  # (3) SQL pretty print
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${mail.username}
+    password: ${mail.password}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+logging:
+  level:
+    org:
+      springframework:
+        orm:
+          jpa: DEBUG
+server:
+  servlet:
+    encoding:
+      force-response: true
+jwt:
+  key: ${jwt.key}
+  access-token-expiration-minutes: 40
+  refresh-token-expiration-minutes: 420
+aws:
+  paramstore:
+    enabled: true
+    prefix: /stackoverflow
+    name: seb033
+    profileSeparator: _
