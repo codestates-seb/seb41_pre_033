@@ -9,8 +9,8 @@ import Signup from "./users/pages/login/Signup";
 import User from "./users/pages/User";
 import EditUser from "./users/pages/EditUser";
 import AccountRecovery from "./users/pages/login/AccountRecovery";
-import Ask from "./questions/pages/ask/Ask";
-import Question from "./questions/pages/Question";
+import Ask from "./questions/pages/ask/ask";
+import Question from "./questions/pages/question";
 import EditQuestion from "./questions/pages/edit/EditQuestion";
 import Tags from "./tags/Tags";
 
