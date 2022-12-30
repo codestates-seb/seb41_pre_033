@@ -9,6 +9,7 @@ import server.exception.ExceptionCode;
 import server.tag.entity.Tag;
 import server.tag.repository.TagRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,8 +32,8 @@ public class TagService {
         return result;
     }
 
-    public Page<Tag> searchTags(int page, int size, String q) {
-        return tagRepository.findAllByNameContainingIgnoreCase(q,PageRequest.of(page, size));
+    public List<Tag> searchTags(String q) {
+        return tagRepository.findAllByNameContainingIgnoreCase(q);
     }
 
     public void findVerifiedTag(String name) {
