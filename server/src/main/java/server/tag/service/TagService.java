@@ -31,6 +31,10 @@ public class TagService {
         return result;
     }
 
+    public Page<Tag> searchTags(int page, int size, String q) {
+        return tagRepository.findAllByNameContainingIgnoreCase(q,PageRequest.of(page, size));
+    }
+
     public void findVerifiedTag(String name) {
         Optional<Tag> optionalTag = tagRepository.findByName(name);
                 optionalTag.orElseThrow(() ->
