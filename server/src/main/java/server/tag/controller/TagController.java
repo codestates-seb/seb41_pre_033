@@ -45,13 +45,13 @@ public class TagController {
     }
 
 //    //Todo: search 기능 추가, 정렬
-//    @GetMapping("/search")
-//    public ResponseEntity getSearchTags(@Positive @RequestParam int page,
-//                                        @RequestParam String search){
-//        List<Tag> tags = tagService.findTags();
-//
-//        return new ResponseEntity<>(
-//                new MultiResponseDto<>(tagMapper.tagsToTagResponseDtos(tags)),
-//                HttpStatus.OK);
-//    }
+    @ApiOperation(value = "태그 검색", notes = "page 번호와 검색어를 입력받아서 전체 목록을 응답으로 반환")
+    @GetMapping("/search")
+    public ResponseEntity searchTags(@ApiParam(value = "검색어 입력")@RequestParam String q){
+        List<Tag> tags = tagService.searchTags(q);
+
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(tagMapper.tagsToTagResponses(tags)),
+                HttpStatus.OK);
+}
 }

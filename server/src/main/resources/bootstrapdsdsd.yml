@@ -1,0 +1,6 @@
+#aws:
+#  paramstore:
+#    enabled: true
+#    prefix: stackoverflow
+#    name: pre-project
+#    profileSeparator: _
