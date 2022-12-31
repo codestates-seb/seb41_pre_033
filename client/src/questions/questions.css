@@ -1,0 +1,20 @@
+#questionWrapper{
+    display:flex;
+    flex-direction:column;
+    border: 1px solid red;
+    height:90vh;
+    overflow:scroll;
+}
+
+#question__header{
+    width:80vw;
+}
+
+.question__header--button{
+    
+}
+
+#question__item--wrapper{
+    width:80vw;
+    overflow:scroll;
+}

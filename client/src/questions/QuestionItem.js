@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import Tags from "./components/Tags";
-import UserInfo from "./components/UserInfo";
+import Tags from "./components/tags";
+import UserInfo from "./components/userInfo";
 import axios from "axios";
+import "./questions.css";
 
 export default function QuestionItem({ item }) {
   const {

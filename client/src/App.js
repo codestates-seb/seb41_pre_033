@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Header from './header/Header';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import Questions from "./questions/Questions";
+import Questions from "./questions/questions";
 import Users from "./users/Users";
 import Login from "./users/pages/login/Login";
 import Signup from "./users/pages/login/Signup";
@@ -10,23 +10,21 @@ import User from "./users/pages/User";
 import EditUser from "./users/pages/EditUser";
 import AccountRecovery from "./users/pages/login/AccountRecovery";
 import Ask from "./questions/pages/ask/ask";
-import Question from "./questions/pages/Question";
+import Question from "./questions/pages/question";
 import EditQuestion from "./questions/pages/edit/EditQuestion";
 import Tags from "./tags/tags";
 
-
-
 function App() {
-
   const [isLogin, setIsLogin] = useState(false);
+  const [myUserId, setMyUserId] = useState(null);
   const setLogin = () => setIsLogin(!isLogin);
 
   return (
     <div>
-    <Router>
-      <Header isLogin={isLogin} setLogin={setLogin}/>
-      <Routes>
-        {/* <Route path="/" element={<Questions />} />
+      <Router>
+        <Header isLogin={isLogin} setLogin={setLogin} />
+        <Routes>
+          {/* <Route path="/" element={<Questions />} />
         <Route path="/users" element={<Users />} />
         <Route path="/users/login" element={<Login setLogin={setLogin}/>}/>
         <Route path="/users/sign-up" element={<Signup setLogin={setLogin} />}/>
@@ -38,8 +36,8 @@ function App() {
         <Route path="/questions/:question_id" element={<Question />} />
         <Route path="/questions/edit/:question_id" element={<EditQuestion />} />
         <Route path="/tags" element={<Tags />} /> */}
-      </Routes>
-    </Router>
+        </Routes>
+      </Router>
     </div>
   );
 }

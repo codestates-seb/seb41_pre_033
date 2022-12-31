@@ -1,4 +1,4 @@
-import "./question.css";
+import "./questions.css";
 import { useState, useEffect } from "react";
 import QuestionItem from "./questionItem";
 import { Link } from "react-router-dom";
@@ -27,8 +27,8 @@ function Questions() {
   }, [tabNum, pageNum]);
 
   return (
-    <div className="questionWrapper">
-      <div className="question__header">
+    <div id="questionWrapper">
+      <div id="question__header">
         <div className="qusestion__header--top">
           <h1 className="question__header--title">All Questions</h1>
           <Link to="/questions/ask" element={<Ask />}>
@@ -61,9 +61,11 @@ function Questions() {
             Unanswered
           </button>
         </div>
-        {questionList.map((e) => (
-          <QuestionItem key={e.questionid} item={e} />
-        ))}
+        <div id="question__item--wrapper">
+          {questionList.map((e) => (
+            <QuestionItem key={e.questionid} item={e} />
+          ))}
+        </div>
       </div>
     </div>
   );
