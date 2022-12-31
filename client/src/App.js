@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Header from './header/Header';
+import Header from './header/header';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Questions from "./questions/Questions";
@@ -30,7 +30,7 @@ function App() {
         <Route path="/users" element={<Users />} />
         <Route path="/users/login" element={<Login setLogin={setLogin}/>}/>
         <Route path="/users/sign-up" element={<Signup setLogin={setLogin} />}/>
-        <Route path="/users/:id/:user_nickname" element={<User />}/>
+        <Route path="/users/:id" element={<User />}/>
         <Route path="/users/edit/:id" element={<EditUser />}/>
         <Route path="/users/account-recovery" element={<AccountRecovery />}/>
         <Route path="/questions" element={<Questions />} />

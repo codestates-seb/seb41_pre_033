@@ -9,29 +9,33 @@ import ActivityTab from './ActivityTab';
 
 //개별 유저의 페이지
 const User = () => {
-    const { id, nickname } = useParams();
-    const [oneUser, setOneUsers] = useState([]);
+    const { id } = useParams();
+    const domain = "http://ec2-43-201-146-208.ap-northeast-2.compute.amazonaws.com:8080"
+    const [oneUser, setOneUsers] = useState({});
     const [tab, setTab] = useState("profile");
     const profileTab = () => setTab("profile");
     const activityTab = () => setTab("activity");
 
     useEffect(() => {
+        const getOneUser = () => {
+            return fetch(domain+`/users/${id}`)
+            .then((res) => {
+                console.log("res is ", res);
+                return res.json()})
+            .then((data) => {
+              setOneUsers(data.data);
+            })
+          };
         getOneUser();
-    }, []);
-    const getOneUser = () => {
-        return fetch(`http://localhost:3001/users/${id}`)
-        .then((res) => res.json())
-        .then((data) => {
-        setOneUsers(data)
-        })
-    };
+      }, [])
+    console.log("one User is ",oneUser);
 
     return (
     <div id="user-body">
         <div id="user-header">
-            <div id="user-pfp">{`${(nickname).slice(0,1).toUpperCase()}`}</div>
+            <div id="user-pfp"></div>
             <div id="user-text">
-                <div id="user-name">{nickname}</div>
+                <div id="user-name">{oneUser}</div>
                 <div id="user-info">
                     <div className='user-info-item'><a href={oneUser.link} target="_blank" className='link'><FontAwesomeIcon className="user-icon" icon={faGithub} /></a></div>
                     <div className='user-info-item'><FontAwesomeIcon className="user-icon" icon={faLocationDot} /> From {oneUser.country}</div>
@@ -47,7 +51,7 @@ const User = () => {
             <div className='user-menu-item' onClick={activityTab}>Activity</div>
         </div>
         <div id="user-content">
-            {tab==="profile" ? <ProfileTab rep={oneUser.reputation} about={oneUser.introduction} tags={oneUser.tags}/>:<ActivityTab/>}
+            {tab==="profile" ? <ProfileTab rep={oneUser.reputation} about={oneUser.introduction} tags={oneUser.userTags}/>:<ActivityTab ans={oneUser.answers} qs={oneUser.questions}/>}
         </div>
     </div>
     )
