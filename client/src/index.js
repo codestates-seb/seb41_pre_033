@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from "react-dom/client";
-import App2 from "./App1";
+import App1 from "./App1";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App2 />
+    <App1 />
   </React.StrictMode>
 );

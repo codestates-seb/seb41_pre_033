@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Ask from "./questions/pages/ask/ask";
 import Navbar from "./components/navbar/Navbar";
 import Questions from "./questions/Questions";
-import Tags from "./tags/Tags";
+import Tags from "./tags/tags";
 import Users from "./users/Users";
 import User from "./users/pages/User";
 import Login from "./users/pages/login/Login"

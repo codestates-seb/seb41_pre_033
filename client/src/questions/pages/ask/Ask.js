@@ -1,8 +1,19 @@
 import Guide from "./components/Guide";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import axios from "axios";
+import { redirect } from "react-router-dom";
 
 export default function Ask() {
-  const [question, setQuestion] = useState({});
+  const [question, setQuestion] = useState({ userId: "3" });
+  const [tags, setTags] = useState("");
+  const problemInput = useRef(null);
+  let tagsRaw = "";
+
+  function askHandler() {
+    axios.post("/questions/ask", question).then(() => {
+      return redirect("/questions");
+    });
+  }
 
   const Title = () => {
     return (
@@ -20,7 +31,13 @@ export default function Ask() {
           }}
           value={question.title}
         ></input>
-        <button>Next</button>
+        <button
+          onClick={() => {
+            problemInput.current.focus();
+          }}
+        >
+          Next
+        </button>
       </div>
     );
   };
@@ -37,26 +54,10 @@ export default function Ask() {
         <input
           type="text"
           onChange={(e) => {
-            setQuestion(Object.assign(question, { problem: e.target.value }));
+            setQuestion(Object.assign(question, { body: e.target.value }));
           }}
-        ></input>
-      </div>
-    );
-  }
-  function Expect() {
-    return (
-      <div>
-        <h3>What did you try and what were you expecting?</h3>
-        <br />
-        <div>
-          Describe what you tried, what you expected to happen, and what
-          actually resulted. Minimum 20 characters.
-        </div>
-        <input
-          type="text"
-          onChange={(e) => {
-            setQuestion(Object.assign(question, { expect: e.target.value }));
-          }}
+          value={question.body}
+          ref={problemInput}
         ></input>
       </div>
     );
@@ -68,14 +69,19 @@ export default function Ask() {
         <h3>Tags</h3>
         <br />
         <div>
-          Add up to 5 tags to describe what your question is about. Start typing
-          to see suggestions.
+          Add up to 5 tags to describe what your question is about. 태그는
+          띄어쓰기로 구분합니다.
         </div>
         <input
           type="text"
           placeholder="예시"
           onChange={(e) => {
-            setQuestion(Object.assign(question, { tags: e.target.value }));
+            tagsRaw = e.target.value;
+            let tagsEach = tagsRaw.split(" ");
+            let tagsArr = tagsEach.map((e) => {
+              return { tagName: e };
+            });
+            setQuestion(Object.assign(question, { questionTags: tagsArr }));
           }}
           value={question.tags}
         ></input>
@@ -89,7 +95,6 @@ export default function Ask() {
       <Guide />
       <Title />
       <Problem />
-      <Expect />
       <Tags />
       <button
         onClick={() => {
@@ -97,6 +102,14 @@ export default function Ask() {
         }}
       >
         콘솔에서 확인
+      </button>
+      <button onClick={askHandler}>Submit</button>
+      <button
+        onClick={() => {
+          redirect("/a");
+        }}
+      >
+        리다이렉트?
       </button>
     </div>
   );

@@ -27,30 +27,59 @@ const User = () => {
     };
 
     return (
-    <div id="user-body">
+      <div id="user-body">
         <div id="user-header">
-            <div id="user-pfp">{`${(nickname).slice(0,1).toUpperCase()}`}</div>
-            <div id="user-text">
-                <div id="user-name">{nickname}</div>
-                <div id="user-info">
-                    <div className='user-info-item'><a href={oneUser.link} target="_blank" className='link'><FontAwesomeIcon className="user-icon" icon={faGithub} /></a></div>
-                    <div className='user-info-item'><FontAwesomeIcon className="user-icon" icon={faLocationDot} /> From {oneUser.country}</div>
-                </div>
-                <div className='user-info-item'>{oneUser.title}</div>
+          <div id="user-pfp">{`${nickname.slice(0, 1).toUpperCase()}`}</div>
+          <div id="user-text">
+            <div id="user-name">{nickname}</div>
+            <div id="user-info">
+              <div className="user-info-item">
+                <a
+                  href={oneUser.link}
+                  target="_blank"
+                  className="link"
+                  rel="noreferrer"
+                >
+                  <FontAwesomeIcon className="user-icon" icon={faGithub} />
+                </a>
+              </div>
+              <div className="user-info-item">
+                <FontAwesomeIcon className="user-icon" icon={faLocationDot} />{" "}
+                From {oneUser.country}
+              </div>
             </div>
-            <div id="edit-button-container">
-                <Link to="/users/edit/id" className='link'><button id="edit-profile"><FontAwesomeIcon className="user-icon" icon={faPen} />Edit profile</button></Link>
-            </div>
+            <div className="user-info-item">{oneUser.title}</div>
+          </div>
+          <div id="edit-button-container">
+            <Link to="/users/edit/id" className="link">
+              <button id="edit-profile">
+                <FontAwesomeIcon className="user-icon" icon={faPen} />
+                Edit profile
+              </button>
+            </Link>
+          </div>
         </div>
         <div id="user-menu">
-            <div className='user-menu-item' onClick={profileTab}>Profile</div>
-            <div className='user-menu-item' onClick={activityTab}>Activity</div>
+          <div className="user-menu-item" onClick={profileTab}>
+            Profile
+          </div>
+          <div className="user-menu-item" onClick={activityTab}>
+            Activity
+          </div>
         </div>
         <div id="user-content">
-            {tab==="profile" ? <ProfileTab rep={oneUser.reputation} about={oneUser.introduction} tags={oneUser.tags}/>:<ActivityTab/>}
+          {tab === "profile" ? (
+            <ProfileTab
+              rep={oneUser.reputation}
+              about={oneUser.introduction}
+              tags={oneUser.tags}
+            />
+          ) : (
+            <ActivityTab />
+          )}
         </div>
-    </div>
-    )
+      </div>
+    );
 
 }
 
