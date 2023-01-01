@@ -1,6 +1,7 @@
 package server.auth.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import lombok.SneakyThrows;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -8,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import server.auth.dto.LoginDto;
 import server.auth.jwt.JwtTokenizer;
+import server.dto.SingleResponseDto;
 import server.user.entity.User;
 
 import javax.servlet.FilterChain;
@@ -54,6 +56,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         response.setHeader("Authorization", "Bearer " + accessToken);
         response.setHeader("Refresh", refreshToken);
+        response.addHeader("user-id", user.getUserId().toString());
+//        response.setHeader("user-id-set", user.getUserId().toString());
     }
 
     // AccessToken 생성
