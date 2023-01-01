@@ -10,7 +10,6 @@ import ActivityTab from './ActivityTab';
 //개별 유저의 페이지
 const User = () => {
     const { id } = useParams();
-    const domain = "http://ec2-43-201-146-208.ap-northeast-2.compute.amazonaws.com:8080"
     const [oneUser, setOneUsers] = useState({});
     const [tab, setTab] = useState("profile");
     const profileTab = () => setTab("profile");
@@ -18,7 +17,7 @@ const User = () => {
 
     useEffect(() => {
         const getOneUser = () => {
-            return fetch(domain+`/users/${id}`)
+            return fetch(`/users/${id}`)
             .then((res) => {
                 console.log("res is ", res);
                 return res.json()})

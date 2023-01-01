@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Tags from "./components/Tags";
 import UserInfo from "./components/UserInfo";
+import axios from "axios";
 
 export default function QuestionItem({ item }) {
   const {
@@ -18,10 +19,14 @@ export default function QuestionItem({ item }) {
   return (
     <div className="question-wrapper">
       <div className="question-left">
-        <span>votes</span>
-        <span>answers</span>
-        <span>views</span>
-        <span>바운티</span>
+        <label>Votes: </label>
+        <span>{vote}</span>
+        <label>Answers: </label>
+        <span>{answers}</span>
+        <label>Views: </label>
+        <span>{viewed}</span>
+        <label>Bounty: </label>
+        <span>{bounty}</span>
       </div>
       <div className="question-right">
         <h2 className="question-title">{title}</h2>

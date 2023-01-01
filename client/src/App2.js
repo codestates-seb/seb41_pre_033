@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Header from './header/header';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from "./components/navbar/navbar";
-import Questions from "./questions/Questions";
+import Questions from "./questions/questions";
 import Tags from "./tags/Tags";
 import Users from "./users/Users";
 import User from "./users/pages/User";
@@ -10,7 +10,7 @@ import Login from "./users/pages/login/Login"
 import Signup from "./users/pages/login/Signup"
 import { EditUser } from './users/pages/EditUser';
 import {AccountRecovery} from './users/pages/AccountRecovery';
-import Ask from './questions/pages/ask/Ask';
+import Ask from './questions/pages/ask/ask';
 
 function App2() {
   const [isLogin, setIsLogin] = useState(false);

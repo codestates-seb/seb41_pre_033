@@ -1,9 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import axios from 'axios';
 import './login.css';
 
 function Login ({setLogin}) {
+    const navigate = useNavigate();
     const [formValue, setformValue] = useState({
         username: '',
         password: ''
@@ -41,21 +42,12 @@ function Login ({setLogin}) {
     //     }
     const clickLogin = (e) => {
         e.preventDefault();
-        const loginFormData = new FormData();
-        loginFormData.append("username", formValue.username)
-        loginFormData.append("password", formValue.password)
-        fetch ("http://ec2-43-201-146-208.ap-northeast-2.compute.amazonaws.com:8080/users/login", {
-           method: "POST",
-           headers: {
-            Accept: "application/json, text/plain, */*",
-            "Content-Type": "application/json",
-          },
-           body: JSON.stringify(loginFormData),
-      })
+        axios.post("/users/login", formValue)
         .then((response) => response.json())
         .then((result) => {
           console.log("result is ",result);
         });
+        navigate('/');
         setLogin();
       }
 

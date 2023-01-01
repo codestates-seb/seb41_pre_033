@@ -1,14 +1,12 @@
 import "./question.css";
 import { useState, useEffect } from "react";
-import QuestionItem from "./QuestionItem";
+import QuestionItem from "./questionItem";
 import { Link } from "react-router-dom";
-import Ask from "./pages/ask/Ask";
-// import { axios } from "axios";
+import Ask from "./pages/ask/ask";
+import axios from "axios";
 
 function Questions() {
-  const axios = require("axios");
-  const getQuestionDomain =
-    "http://ec2-13-125-198-24.ap-northeast-2.compute.amazonaws.com:8080/questions?";
+  const getQuestionDomain = "/questions?";
 
   const [isLoding, setIsLoading] = useState(true);
   const [questionList, setQuestionList] = useState([]);
@@ -17,43 +15,19 @@ function Questions() {
   // tabNum -> undifined 혹은 0 일때
   const tabList = ["newest", "bountied", "unanswered"];
 
-  async function getQ(domain, pageNum, tab) {
-    try {
-      const res = await fetch(`${domain}page=${pageNum}&tab=${tab}`).then((e) =>
-        e.json()
-      );
-      return res;
-    } catch (err) {
-      console.log(err);
-    }
-  }
   useEffect(() => {
     function getQ(domain, pageNum, tab) {
-      fetch(`${domain}page=${pageNum}&tab=${tab}`)
-        .then((e) => e.json())
-        .then((data) => data.data)
+      axios(`${domain}page=${pageNum}&tab=${tab}`)
+        .then((data) => data.data.data)
         .then((data) => {
-          setIsLoading(!isLoding);
-          console.log(data[0].questionId);
           setQuestionList(data);
         });
     }
     getQ(getQuestionDomain, pageNum, tabList[tabNum]);
   }, [tabNum, pageNum]);
 
-  function getQ_Handler() {
-    const ques = getQ(getQuestionDomain, pageNum, tabList[tabNum]);
-    ques
-      .then((data) => data.data)
-      .then((data) => {
-        setIsLoading(!isLoding);
-        console.log(data[0].questionId);
-        setQuestionList(data);
-      });
-  }
   return (
     <div className="questionWrapper">
-      <button onClick={getQ_Handler}>질문</button>
       <div className="question__header">
         <div className="qusestion__header--top">
           <h1 className="question__header--title">All Questions</h1>

@@ -2,17 +2,17 @@ import React, { useState } from 'react';
 import Header from './header/header';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import Questions from "./questions/Questions";
+import Questions from "./questions/questions";
 import Users from "./users/Users";
 import Login from "./users/pages/login/Login";
 import Signup from "./users/pages/login/Signup";
 import User from "./users/pages/User";
 import EditUser from "./users/pages/EditUser";
 import AccountRecovery from "./users/pages/login/AccountRecovery";
-import Ask from "./questions/pages/ask/Ask";
+import Ask from "./questions/pages/ask/ask";
 import Question from "./questions/pages/Question";
 import EditQuestion from "./questions/pages/edit/EditQuestion";
-import Tags from "./tags/Tags";
+import Tags from "./tags/tags";
 
 
 

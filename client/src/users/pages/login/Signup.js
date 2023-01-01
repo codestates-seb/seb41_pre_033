@@ -18,16 +18,10 @@ function Signup ({setLogin}) {
 
       const signUp = (e) => {
         e.preventDefault();
-        console.log("form is ",formValue);
-        console.log("json is ", JSON.stringify(formValue));
-        axios.post({
-          method: "POST",
-          url: "http://ec2-43-201-146-208.ap-northeast-2.compute.amazonaws.com:8080/users/sign-up",
-          body: JSON.stringify(formValue),
-        })
+        axios.post("/users/sign-up", formValue)
         .then((response) => response.json())
         .then((data) => {
-          console.log("data is ", data);
+          console.log("data is ", data)
           if (data.error) {
             alert("Error Password or Username"); /*displays error message*/
           } else {
