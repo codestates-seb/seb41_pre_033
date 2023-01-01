@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from 'react';
 import './signup.css';
 import axios from 'axios';
 
-function Signup ({setLogin}) {
+function Signup ({setLogin, setMyUserId}) {
+  const navigate = useNavigate();
   const [formValue, setformValue] = useState({
     email: '',
     nickname: '',
@@ -19,19 +20,22 @@ function Signup ({setLogin}) {
       const signUp = (e) => {
         e.preventDefault();
         axios.post("/users/sign-up", formValue)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("data is ", data)
-          if (data.error) {
-            alert("Error Password or Username"); /*displays error message*/
-          } else {
+        .then((response) => {
+          console.log("res is ", response);
+          if (response.status===201) {
             alert("Signed up successfully!");
             setLogin();
-            window.open("http://localhost:3000");
+            setMyUserId(response.data.userId);
+            navigate("/");
           }
         })
         .catch((err) => {
-          console.log(err);
+          if (err.response.status===400){
+            alert("Incorrect Email form!")
+          }
+          if (err.response.status===409) {
+            alert("Account already exist!")
+          }
         });
       };
 

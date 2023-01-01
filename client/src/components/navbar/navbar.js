@@ -1,5 +1,5 @@
 import "./navbar.css";
-import { NavbarData } from "./navbarData";
+import { NavbarData } from "./NavbarData";
 
 function Navbar() {
   return (

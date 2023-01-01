@@ -14,20 +14,24 @@ const User = () => {
     const [tab, setTab] = useState("profile");
     const profileTab = () => setTab("profile");
     const activityTab = () => setTab("activity");
+    let d;
 
     useEffect(() => {
+        console.log("id is ", id);
         const getOneUser = () => {
-            return fetch(`/users/${id}`)
+            return fetch(`http://ec2-43-201-146-208.ap-northeast-2.compute.amazonaws.com:8080/users/${id}`)
             .then((res) => {
-                console.log("res is ", res);
-                return res.json()})
-            .then((data) => {
-              setOneUsers(data.data);
+                return res.json()
             })
-          };
+            .then((data) => {
+                d = data.data;
+                console.log("d is ", d)
+                setOneUsers(d);
+            })
+        };
         getOneUser();
-      }, [])
-    console.log("one User is ",oneUser);
+
+    }, [])
 
     return (
     <div id="user-body">

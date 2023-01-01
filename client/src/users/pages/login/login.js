@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './login.css';
 
-function Login ({setLogin}) {
+function Login ({setLogin, setMyUserId}) {
     const navigate = useNavigate();
     const [formValue, setformValue] = useState({
         username: '',
@@ -43,13 +43,16 @@ function Login ({setLogin}) {
     const clickLogin = (e) => {
         e.preventDefault();
         axios.post("/users/login", formValue)
-        .then((response) => response.json())
-        .then((result) => {
-          console.log("result is ",result);
+        .then((response) => {
+            console.log("res is ", response);
+            navigate('/');
+            setLogin();
+            setMyUserId(2) //토큰 jwt를 쿠키에 넣어서
+        })
+        .catch((err) => {
+            alert("Invaild Email or Password!");
         });
-        navigate('/');
-        setLogin();
-      }
+    }
 
 
     return (

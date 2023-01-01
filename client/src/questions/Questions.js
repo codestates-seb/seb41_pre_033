@@ -1,8 +1,8 @@
 import "./questions.css";
 import { useState, useEffect } from "react";
-import QuestionItem from "./questionItem";
+import QuestionItem from "./QuestionItem";
 import { Link } from "react-router-dom";
-import Ask from "./pages/ask/ask";
+import Ask from "./pages/ask/Ask";
 import axios from "axios";
 
 function Questions() {
