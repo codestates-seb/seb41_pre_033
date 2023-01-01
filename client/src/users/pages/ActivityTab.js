@@ -1,4 +1,5 @@
 import './profile.css';
+import Qs from './Qs';
 
 const ActivityTab = ({ans, qs}) => {
     return (
@@ -16,7 +17,9 @@ const ActivityTab = ({ans, qs}) => {
                 <div className="questions profile-container">
                     {qs.length===0 ?
                     <div>No Question Yet!</div>
-                    : <div>{qs.length}</div>}
+                    : <div>{qs.map((e) => {
+                        return <Qs key={e.questionId} qs={e} />
+                    })}</div>}
                 </div>
             </div>
             <div className="quarter">

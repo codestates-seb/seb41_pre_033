@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import Header from "./header/header";
+import Header from "./header/Header";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Ask from "./questions/pages/ask/ask";
-import Navbar from "./components/navbar/navbar";
+import Navbar from "./components/navbar/Navbar";
 import Questions from "./questions/questions";
 import Tags from "./tags/tags";
 // import Users from "./users/Users";
