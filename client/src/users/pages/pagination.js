@@ -1,6 +1,5 @@
 
-
-export const Pagination = ({ page, setPage }) => {
+const Pagination = ({ page, setPage }) => {
     const numPages = 2;
     //일단 두개만 해둠. 나중에 필요하면 토탈 유저수 받아와서 페이지당개수(36)로 나눠주자
   
@@ -28,3 +27,5 @@ export const Pagination = ({ page, setPage }) => {
           </div>
     );
   }
+
+  export default Pagination;

@@ -8,7 +8,7 @@ import Login from "./users/pages/login/Login";
 import Signup from "./users/pages/login/Signup";
 import User from "./users/pages/User";
 import EditUser from "./users/pages/EditUser";
-import AccountRecovery from "./users/pages/login/AccountRecovery";
+import { AccountRecovery } from "./users/pages/AccountRecovery";
 import Ask from "./questions/pages/ask/Ask";
 import Question from "./questions/pages/Question";
 import EditQuestion from "./questions/pages/edit/EditQuestion";
