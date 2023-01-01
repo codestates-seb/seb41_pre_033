@@ -69,6 +69,7 @@ public class UserController {
                                     @ApiParam(value = "닉네임, 국가, 소제목, 자기소개, 개인 사이트 링크, 태그 중 변경하고 싶은 정보를 입력") @Valid @RequestBody UserDto.Patch requestBody) {
         // TODO: userId 를 입력받고 requestBody 에 포함된 값들만 수정 후에 응답을 반환하거나 예외 처리
         requestBody.setUserId(userId);
+
         User user = userService.updateUser(userMapper.userPatchToUser(requestBody));
 
         return new ResponseEntity<>(
