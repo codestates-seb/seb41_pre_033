@@ -94,6 +94,7 @@ public interface UserMapper {
                 .map(question -> {
                     QuestionDto.ResponseQ question1 = new QuestionDto.ResponseQ();
                     question1.setUserId(user);
+                    question1.setNickname(user.getNickname());
                     question1.setQuestionId(question.getQuestionId());
                     question1.setTitle(question.getTitle());
                     question1.setBody(question.getBody());

@@ -12,7 +12,6 @@ public interface AnswerMapper {
         Answer answer = new Answer();
         User user = new User();
         user.setUserId(requestBody.getUserId());
-
         answer.setBody( requestBody.getBody() );
         answer.setUser( user );
         return answer;
@@ -27,6 +26,7 @@ public interface AnswerMapper {
                 .userId(answer.getUser().getUserId())
                 .questionId(answer.getQuestion().getQuestionId())
                 .answerId(answer.getAnswerId())
+                .nickname(answer.getUser().getNickname())
                 .build();
     }
 

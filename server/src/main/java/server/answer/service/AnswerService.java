@@ -28,6 +28,7 @@ public class AnswerService {
         answer.setQuestion(targetQuestion);
         answer.setAccepted(false);
         answer.setVote(0);
+        answer.getUser().setNickname(userService.findVerifiedUser(answer.getUser().getUserId()).getNickname());
         verifyAnswer(answer);
         return saveAnswer(answer);
     }
