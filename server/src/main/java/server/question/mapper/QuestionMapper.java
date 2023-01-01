@@ -94,6 +94,7 @@ public interface QuestionMapper {
                         .userId(answer.getUser().getUserId())
                         .questionId(answer.getQuestion().getQuestionId())
                         .answerId(answer.getAnswerId())
+                        .nickname(answer.getUser().getNickname())
                         .build())
                 .collect(Collectors.toList());
     }
