@@ -6,6 +6,7 @@ import { faUser, faArrowRightFromBracket } from "@fortawesome/free-solid-svg-ico
 
 
 function MyPageDropDown ({setLogin}) {
+    //마이페이지
     return (
         <div id="dropdown-body">
             <div id="dropdown">Welcome, User A Name!</div>

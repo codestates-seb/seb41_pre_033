@@ -8,7 +8,7 @@ import SearchDropDown from "./Dropdown";
 import MyPageDropDown from "./MypageDropdown";
 
 function Header({isLogin, setLogin}) {
-
+  //헤더
   const dropdownRef = useRef(null);
   const mypageRef = useRef(null);
   const [isActive, setIsActive] = useState(false);
