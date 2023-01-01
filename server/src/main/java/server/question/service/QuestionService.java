@@ -72,7 +72,7 @@ public class QuestionService {
             questionTagRepository.deleteAllByQuestion(findQuestion);
             findQuestion.setQuestionTags(question.getQuestionTags());
             for (QuestionTag questionTag : findQuestion.getQuestionTags()) {
-                Tag tag = tagRepository.findByName(questionTag.getTag().getName()).orElseThrow();
+                Tag tag = tagRepository.findByName(questionTag.getTag().getName()).orElseThrow(()->new BusinessLogicException(ExceptionCode.TAG_NOT_FOUND));
                 if(tag.getUsed()==null) tag.setUsed(0);
                 tag.setUsed(tag.getUsed()+1);
             }
