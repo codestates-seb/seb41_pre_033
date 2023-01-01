@@ -7,14 +7,14 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import server.answer.repository.AnswerRepository;
-import server.answer.service.AnswerService;
+import org.springframework.transaction.annotation.Transactional;
 import server.exception.BusinessLogicException;
 import server.exception.ExceptionCode;
+import server.tag.service.TagService;
 import server.user.entity.User;
+import server.user.entity.UserTag;
 import server.user.repository.UserRepository;
 
-import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 @Transactional
 @Service
@@ -22,14 +22,16 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JavaMailSender mailSender;
+    private final TagService tagService;
 
 
     public UserService(UserRepository userRepository,
                        PasswordEncoder passwordEncoder,
-                       JavaMailSender mailSender) {
+                       JavaMailSender mailSender, TagService tagService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.mailSender = mailSender;
+        this.tagService = tagService;
     }
 
     public User createUser(User user) {
@@ -93,7 +95,13 @@ public class UserService {
         Optional.ofNullable(user.getLink())
                 .ifPresent(findUser::setLink);
         Optional.ofNullable(user.getUserTags())
-                .ifPresent(findUser::setUserTags);
+                .ifPresent(userTags -> {
+                    for (UserTag userTag : userTags) {
+                        tagService.findVerifiedTag(userTag.getTag().getName());
+                    }
+                    findUser.setUserTags(userTags);
+                });
+//                .ifPresent(findUser::setUserTags);
 
         return userRepository.save(findUser);
     }
