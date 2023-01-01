@@ -1,7 +1,7 @@
 //다수의 유저 보여주는 페이지
 import './users.css'
 import { UserItem } from "./UserItem";
-import { Pagination } from "./pages/pagination";
+import Pagination from "./pages/pagination";
 import React, { useEffect, useState } from 'react';
 import { useQuery } from "react-query";
 import axios from "axios";

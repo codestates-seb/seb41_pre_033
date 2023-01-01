@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './header.css'
 
 function SearchDropDown () {
-
+    //검색창
     return (
         <div id="search-dropdown">
         <div id="guide">
