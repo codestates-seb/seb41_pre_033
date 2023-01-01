@@ -62,7 +62,6 @@ public class UserController {
         // TODO: login 은 config 패키지의 SecurityConfiguration 이 담당한다.
     }
 
-
     @ApiOperation(value = "회원 정보 수정", notes = "닉네임, 국가, 소제목, 자기소개, 개인 사이트 링크, 태그 중 변경하고 싶은 정보를 수정할 수 있다.")
     @PatchMapping("/edit/{user-id}")
     public ResponseEntity patchUser(@ApiParam(value = "user-id 값 입력") @PathVariable("user-id") long userId,
