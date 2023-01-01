@@ -1,5 +1,5 @@
-import UserInfo from "../components/UserInfo";
-import Tags from "../components/Tags";
+import UserInfo from "../components/userInfo";
+import Tags from "../components/tags";
 
 export default function Question() {
   return (

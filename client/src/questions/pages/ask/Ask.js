@@ -1,17 +1,22 @@
 import Guide from "./components/Guide";
 import { useState, useRef } from "react";
 import axios from "axios";
-import { redirect } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 
 export default function Ask() {
   const [question, setQuestion] = useState({ userId: "3" });
   const [tags, setTags] = useState("");
+  const [testN, setTestN] = useState(false);
   const problemInput = useRef(null);
   let tagsRaw = "";
+  const navigate = useNavigate();
 
   function askHandler() {
-    axios.post("/questions/ask", question).then(() => {
-      return redirect("/questions");
+    axios.post("/questions/ask", question).then((res) => {
+      if (res.status === 201) {
+        console.log(res.status);
+        navigate("/a");
+      }
     });
   }
 
@@ -106,11 +111,12 @@ export default function Ask() {
       <button onClick={askHandler}>Submit</button>
       <button
         onClick={() => {
-          redirect("/a");
+          return redirect("/a");
         }}
       >
         리다이렉트?
       </button>
+      {/* {testN ? <Redirect to="/a" /> : ""} */}
     </div>
   );
 }

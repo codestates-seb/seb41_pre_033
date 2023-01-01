@@ -14,6 +14,7 @@ function App() {
   // const tempDomain = "http://localhost:3001";
   // const [users, setUsers] = useState([]);
   const [isLogin, setIsLogin] = useState(false);
+  const [myUserId, setMyUserId] = useState(null);
   const setLogin = () => setIsLogin(!isLogin);
 
   // useEffect(() => {
@@ -31,7 +32,7 @@ function App() {
     <div>
       <Router>
         <Header isLogin={isLogin} setLogin={setLogin} />
-        <Navbar />
+        {/* <Navbar /> */}
         <Routes>
           <Route path="/" element={<Questions />} />
           <Route path="/questions" element={<Questions />} />
