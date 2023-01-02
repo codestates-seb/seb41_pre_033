@@ -4,6 +4,8 @@
 
 12월 15일 ~ 1월 2일까지 약 2주간 Stackoverflow 웹 페이지를 함께 만들었습니다. 😊
 
+<br>
+
 ## 👥 TeamMates
 
 ### Front-End
@@ -19,6 +21,8 @@
 | :---: | :---: |
 | [ 변찬중(@chaning49) ](http://github.com/chaning49) | [ 윤인수(@Insu-Yoon) ](https://github.com/Insu-Yoon) |
 | User, UserTag, Security | Question, Answer, <br> Tag, QuestionTag, AnswerTag |
+
+<br>
 
 ## 🛠 Tech Stack
 
@@ -46,6 +50,8 @@
 <a target="_blank"><img src="https://img.shields.io/badge/mysql-4479A1?style=flat&logo=mysql&logoColor=ffffff"/></a>
 <a target="_blank"><img src="https://img.shields.io/badge/amazon ec2-FF9900?style=flat&logo=amazon ec2&logoColor=ffffff"/></a>
 <a target="_blank"><img src="https://img.shields.io/badge/amazon rds-527FFF?style=flat&logo=amazon rds&logoColor=ffffff"/></a>
+
+<br>
 
 ## 🗂️ Contents
 
@@ -77,12 +83,16 @@
 - Read: 전체 태그를 조회한다.
 - Read: 태그를 검색할 수 있다.
 
+<br>
+
 ## 🩻 E-R Diagram
 
 ![ER_diagram.png](readme_img/ER_diagram.png)
 
 - 백엔드에서 DB 설계를 위해 만든 ERD입니다.
 - 각 엔티티 간의 관계를 고려하여 N:N, 1:N, N:1 관계를 정의하고 테이블을 만들어주었습니다.
+
+<br>
 
 ## 🎞 Commit Conventions
 
@@ -101,6 +111,8 @@
 - 개발 시작 전후 또는 branch를 생성하기 전에 pull로 최신 상태를 만들어줍니다.
 - commit 내용은 한글, 영어의 제한 없이 자유롭게 작성할 수 있습니다.
 - 기능 구현은 feat branch를 이용하고, dev branch에 push하여 내용을 merge합니다.
+
+<br>
 
 ## 🖥 View
 
