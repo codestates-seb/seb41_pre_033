@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react';
 import ProfileTab from './ProfileTab';
 import ActivityTab from './ActivityTab';
 import axios from 'axios';
+import Navbar from '../../components/navbar/Navbar';
 
 //개별 유저의 페이지
 const User = () => {
@@ -41,6 +42,7 @@ const User = () => {
 
     return (
     <div id="user-body">
+        <Navbar />
         <div id="user-header">
             <div id="user-pfp">{oneUser.nickname.slice(0,1).toUpperCase()}</div>
             <div id="user-text">
