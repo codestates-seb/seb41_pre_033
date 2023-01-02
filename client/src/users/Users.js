@@ -3,11 +3,12 @@ import './users.css'
 import { UserItem } from "./UserItem";
 import Pagination from "./pages/pagination";
 import React, { useEffect, useState } from 'react';
+import Navbar from '../components/navbar/Navbar';
 import { useQuery } from "react-query";
 import axios from "axios";
 
 const Users = () => {
-    const domain = "http://ec2-43-201-146-208.ap-northeast-2.compute.amazonaws.com:8080"
+    const domain = "http://ec2-15-164-87-251.ap-northeast-2.compute.amazonaws.com:8080/"
   const [users, setUsers] = useState([]);
   const [page, setPage] = useState(1);
   const [tab, setTab] = useState("abc");
@@ -34,7 +35,7 @@ const Users = () => {
     getUser();
   }, [page, tab])
   const getUser = () => {
-    return fetch(domain+`/users?page=${page}&tab=${tab}`)
+    return fetch(domain+`users?page=${page}&tab=${tab}`)
     .then((res) => res.json())
     .then((data) => {
       setUsers(data.data);
@@ -42,6 +43,7 @@ const Users = () => {
   };
     return (
         <div className='user-list-wrapper'>
+          <Navbar />
           <div id="tab-chage">
             <div className='mini-title'>Sort By</div>
             <div id="buttons-container">

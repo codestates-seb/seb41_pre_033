@@ -1,3 +1,8 @@
+.user-list-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
 .user-item-container {
     border: 1px solid grey;
     margin: 2rem;

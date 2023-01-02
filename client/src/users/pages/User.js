@@ -30,10 +30,8 @@ const User = () => {
 
     useEffect(() => {
         const getOneUser = () => {
-            fetch(`/users/${id}`)
-            .then((res) => {
-                return res.json()
-            })
+            fetch(`http://ec2-15-164-87-251.ap-northeast-2.compute.amazonaws.com:8080/users/${id}`)
+            .then((res) => res.json())
             .then((data) => {
                 setOneUsers(data.data);
             })

@@ -19,7 +19,7 @@ function Signup ({setLogin, setMyUserId}) {
 
       const signUp = (e) => {
         e.preventDefault();
-        axios.post("/users/sign-up", formValue)
+        axios.post("http://ec2-15-164-87-251.ap-northeast-2.compute.amazonaws.com:8080/users/sign-up", formValue)
         .then((response) => {
           console.log("res is ", response);
           if (response.status===201) {
