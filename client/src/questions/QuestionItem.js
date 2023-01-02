@@ -23,7 +23,7 @@ export default function QuestionItem({ item }) {
         <label>Votes: </label>
         <span>{vote}</span>
         <label>Answers: </label>
-        <span>{answers}</span>
+        <span>{answers.length}</span>
         <label>Views: </label>
         <span>{viewed}</span>
         <label>Bounty: </label>
