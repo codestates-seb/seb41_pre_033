@@ -8,14 +8,14 @@
 
 ### Front-End
 
-| <img src="./Rbaam.png" width="100px" height="100px" title="Github_Logo"/> | <img src="./elice.png" width="100px" height="100px" title="Github_Logo"/> | <img src="./cjsrmachs.png" width="100px" height="100px" title="Github_Logo"/>  |
+| <img src="readme_img/Rbaam.png" width="100px" height="100px" title="Github_Logo"/> | <img src="readme_img/elice.png" width="100px" height="100px" title="Github_Logo"/> | <img src="readme_img/cjsrmachs.png" width="100px" height="100px" title="Github_Logo"/>  |
 | :---: | :---: | :---: |
 | [ 김동규(@Rbaam) ](https://github.com/Rbaam) | [ 조유지(@EliseCho13) ](https://github.com/EliseCho13) | [ 최창훈(@cjsrmachs) ](https://github.com/cjsrmachs) |
 | Question, Answer | User, UserTag | - |
 
 ### Back-End
 
-| <img src="./chaning49.png" width="100px" height="100px" title="Github_Logo"/> | <img src="./Insu-Yoon.png" width="100px" height="100px" title="Github_Logo"/> |
+| <img src="readme_img/chaning49.png" width="100px" height="100px" title="Github_Logo"/> | <img src="readme_img/Insu-Yoon.png" width="100px" height="100px" title="Github_Logo"/> |
 | :---: | :---: |
 | [ 변찬중(@chaning49) ](http://github.com/chaning49) | [ 윤인수(@Insu-Yoon) ](https://github.com/Insu-Yoon) |
 | User, UserTag, Security | Question, Answer, <br> Tag, QuestionTag, AnswerTag |
@@ -79,7 +79,7 @@
 
 ## 🩻 E-R Diagram
 
-![ER_diagram.png](ER_diagram.png)
+![ER_diagram.png](readme_img/ER_diagram.png)
 
 - 백엔드에서 DB 설계를 위해 만든 ERD입니다.
 - 각 엔티티 간의 관계를 고려하여 N:N, 1:N, N:1 관계를 정의하고 테이블을 만들어주었습니다.
