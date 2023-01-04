@@ -1,9 +1,10 @@
 .Navbar {
     height: 100%;
-    width: 40rem;
-    background-color: orange;
+    width: 50rem;
     margin: 0;
     padding: 0;
+    position: relative;
+    display: flex;
 }
 
 .NavbarList {

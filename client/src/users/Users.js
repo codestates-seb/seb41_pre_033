@@ -42,13 +42,15 @@ const Users = () => {
     })
   };
     return (
+      <div>
         <div className='user-list-wrapper'>
           <Navbar />
-          <div id="tab-chage">
-            <div className='mini-title'>Sort By</div>
+          <div>
+          <div id="tab-change">
+            <div className='users-title'>Users</div>
             <div id="buttons-container">
-            <button onClick={repTab}>Reputation</button>
-            <button onClick={abcTab}>Basic (ABC)</button>
+              <button className='user-list-tab rep-tab' onClick={repTab}>Reputation</button>
+              <button className='user-list-tab abc-tab' onClick={abcTab}>Basic (ABC)</button>
             </div>
           </div>
             <ul className='user-list-container'>
@@ -56,10 +58,12 @@ const Users = () => {
                     return <UserItem key={e.userId} user={e}/>
                 })}
             </ul>
-            <div>
-                <Pagination page={page} setPage={setPage} />
             </div>
         </div>
+        <div id="pagination-container">
+          <Pagination page={page} setPage={setPage} />
+        </div>
+      </div>
     )
 }
 

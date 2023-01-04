@@ -4,21 +4,19 @@
 }
 
 .user-item-container {
-    border: 1px solid grey;
-    margin: 2rem;
+    padding: 0 4rem 0 0;
+    margin: 1.2rem;
     float:left;
 }
 ul {
     list-style: none;
 }
 .user-pfp {
-    padding: 1.5rem;
+    padding: 2.5rem;
     background-color: darkblue;
     color: white;
-    border-radius: 1rem;
-    height: 4rem;
-    width: 4rem;
-    margin-right: 1rem;
+    border-radius: 0.5rem;
+    margin: 1.2rem;
     text-align: center;
     align-items: center;
     font-weight: bold;
@@ -33,8 +31,57 @@ ul {
     padding: 3.5rem 1.2rem;
 }
 .user-name {
-    font-size: 1rem;
-    font-weight: bold;
+    font-size: 1.3rem;
     text-decoration: none;
-    margin:0.2rem;
+    margin:0.2rem 0;
+    color: #0074cc;
+}
+.items {
+    color: grey;
+}
+.reputation-num {
+    font-weight: bold;
+}
+
+.users-title {
+    margin: 5rem 8rem;
+    font-size: 2.5rem;
+    font-weight: 500;
+}
+#pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 4rem;
+}
+
+.user-list-tab {
+    padding: 1.2rem;
+    font-size:1.1rem;
+    background-color: white;
+    border: 1.5px solid darkgrey;
+}
+.rep-tab {
+    border-bottom-left-radius: 0.3rem;
+    border-top-left-radius: 0.3rem;
+    border-right: none;
+}
+.abc-tab {
+    border-bottom-right-radius: 0.3rem;
+    border-top-right-radius: 0.3rem;
+
+}
+.user-list-tab:hover {
+    background-color: #efefef;
+}
+#tab-change {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+#buttons-container {
+    display: flex;
+    align-items: end;
+    margin: 2rem 22rem 2rem 0;
+    padding: 0 2rem;
 }

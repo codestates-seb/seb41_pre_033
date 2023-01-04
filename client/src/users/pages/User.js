@@ -54,7 +54,7 @@ const User = () => {
                 <div className='user-info-item'>{oneUser.title}</div>
             </div>
             <div id="edit-button-container">
-                <Link to={`/users/edit/${id}`} className='link'><button id="edit-profile"><FontAwesomeIcon className="user-icon" icon={faPen} />Edit profile</button></Link>
+                <Link to={`/users/edit/${id}`} className='link'><button id="edit-profile"><FontAwesomeIcon className="user-icon" icon={faPen} /> Edit profile</button></Link>
             </div>
         </div>
         <div id="user-menu">
