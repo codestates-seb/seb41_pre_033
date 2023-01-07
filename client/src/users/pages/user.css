@@ -17,8 +17,9 @@
     justify-content: center;
     margin: 2rem;
 }
-.user-icon {
+.user-icon-git {
     margin-left: 0.1rem;
+    color: #525960;
 }
 #user-header {
     display: flex;
@@ -27,8 +28,12 @@
 }
 #edit-button-container {
     flex: 2 0 auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items:flex-start;
+    padding: 3rem;
 }
-#edit-profile {
+#edit-profile-button {
     padding: 1rem;
     border-radius: 0.3rem;
     background-color: white;
@@ -36,7 +41,7 @@
     color: grey;
     font-size: 1rem;
 }
-#edit-profile:hover {
+#edit-profile-button:hover {
     background-color: #e4e4e4;
 }
 .user-info-item {
@@ -58,11 +63,12 @@
 #user-info {
     display: flex;
     flex-direction: row;
-
+    margin-top: 1rem;
 }
 .user-info-item {
     color: #6a737c;
-    margin: 1rem;
+    margin: 0.5rem 0.2rem ;
+    width: 30rem;
 }
 #user-menu {
     display: flex;
@@ -71,10 +77,35 @@
 }
 .user-menu-item{
     margin:1rem;
-    font-size: 1.2rem;
-    padding: 1rem 1.3rem;
+    font-size: 1.7rem;
+    padding: 1rem 1.5rem;
     border-radius: 2rem;
+    color: #525960;
 }
 .user-menu-item:hover {
     background-color: lightgrey;
+}
+.selected {
+    margin:1rem;
+    font-size: 1.7rem;
+    padding: 1rem 1.9rem;
+    border-radius: 2rem;
+    color: white;
+    background-color: #F48225;
+}
+.selected:hover {
+    background-color: darkorange;
+}
+#user-wrapper {
+    margin: 0 30rem;
+}
+.user-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-left: 1.3rem;
+}
+.github {
+    width: 2rem;
+    margin-left: 1.3rem;
 }

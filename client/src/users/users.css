@@ -10,6 +10,7 @@
 }
 ul {
     list-style: none;
+    padding: 0;
 }
 .user-pfp {
     padding: 2.5rem;
@@ -38,6 +39,7 @@ ul {
 }
 .items {
     color: grey;
+    width: 10rem;
 }
 .reputation-num {
     font-weight: bold;

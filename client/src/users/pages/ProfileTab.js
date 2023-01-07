@@ -18,14 +18,14 @@ const ProfileTab = ({rep, about, tags, ans, qs}) => {
                 <div id="about">
                     <div className='mini-title'>About</div>
                     <div id="about-container">
-                        {about}
+                        {about===null ? "No introduction has been made!":about}
                     </div>
                 </div>
                 <div id="tags">
                     <div className='mini-title'>Tags</div>
                     <div id="tags-container">
-                        <ul className='tag-list-container'>
-                        {tags.map((e) => {
+                        <ul className='tags-list-container'>
+                        {tags.length===0 ? <div className='tag-list-item'>No tags yet!</div>:tags.map((e) => {
                             return <div className='tag-list-item'>{e.tagName}</div>
                         })}
                         </ul>

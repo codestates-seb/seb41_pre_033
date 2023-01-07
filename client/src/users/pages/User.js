@@ -43,26 +43,28 @@ const User = () => {
     return (
     <div id="user-body">
         <Navbar />
+        <div id="user-wrapper">
         <div id="user-header">
             <div id="user-pfp">{oneUser.nickname.slice(0,1).toUpperCase()}</div>
             <div id="user-text">
                 <div id="user-name">{oneUser.nickname}</div>
                 <div id="user-info">
-                    <div className='user-info-item'><a href={oneUser.link} target="_blank" className='link'><FontAwesomeIcon className="user-icon" icon={faGithub} /></a></div>
-                    <div className='user-info-item'><FontAwesomeIcon className="user-icon" icon={faLocationDot} /> From {oneUser.country}</div>
+                    <div className='user-info-item github'><a href={oneUser.link} target="_blank" className='link'><FontAwesomeIcon className="user-icon-git" icon={faGithub} /></a></div>
+                    {oneUser.country===null ? "":<div className='user-info-item'><FontAwesomeIcon className="user-icon" icon={faLocationDot} /> From {oneUser.country}</div>}
                 </div>
-                <div className='user-info-item'>{oneUser.title}</div>
+                <div className='user-info-item user-title'>{oneUser.title}</div>
             </div>
             <div id="edit-button-container">
-                <Link to={`/users/edit/${id}`} className='link'><button id="edit-profile"><FontAwesomeIcon className="user-icon" icon={faPen} /> Edit profile</button></Link>
+                <button id="edit-profile-button"><Link to={`/users/edit/${id}`} className='link'><FontAwesomeIcon className="user-icon" icon={faPen} /> Edit profile</Link></button>
             </div>
         </div>
         <div id="user-menu">
-            <div className='user-menu-item' onClick={profileTab}>Profile</div>
-            <div className='user-menu-item' onClick={activityTab}>Activity</div>
+            <div className={tab==="profile" ? "selected":"user-menu-item"} onClick={profileTab}>Profile</div>
+            <div className={tab==="activity" ? "selected":"user-menu-item"} onClick={activityTab}>Activity</div>
         </div>
         <div id="user-content">
             {tab==="profile" ? <ProfileTab rep={oneUser.reputation} about={oneUser.introduction} tags={oneUser.userTags} ans={oneUser.answers.length} qs={oneUser.questions.length}/>:<ActivityTab ans={oneUser.answers} qs={oneUser.questions}/>}
+        </div>
         </div>
     </div>
     )

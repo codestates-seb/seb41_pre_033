@@ -2,8 +2,9 @@
     box-sizing: border-box;
 }
 #stats-container {
-    padding: 2rem;
+    padding: 3rem;
     border: 1px solid grey;
+    border-radius: 1rem;
     font-size: 1.4rem;
     margin: 0.5rem 0;
 }
@@ -13,26 +14,49 @@
     padding: 2rem;
 }
 .tag-list-item {
-    border: 1px solid lightgray;
-    padding: 1rem;
+    border-bottom: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    border-left: 1px solid lightgray;
+    padding: 1.2rem;
     font-size: 1.4rem;
+    width: 100%;
 }
 .mini-title {
     font-size: 2rem;
     font-weight: bold;
 }
 #about-container {
-    border: 1px solid lightgray;
+    border: 1px solid gray;
+    border-radius: 1rem;
     margin: 2rem 0;
     padding: 2rem;
     font-size: 1.4rem;
 }
 .profile-container {
     border: 1px solid grey;
+    border-radius: 1rem;
     padding: 2rem;
     font-size: 1.4rem;
 }
 #activity-wrapper {
     display: flex;
     float: left;
+}
+#about-and-tags {
+    margin-left: 5rem;
+    width: 100%;
+}
+.tags-list-container {
+    border-top: 1px solid lightgrey;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: center;
+}
+.stats-items {
+    margin-bottom: 2rem;
+}
+#profile-stats {
+    margin-left: 1rem;
+    width: 20rem;
 }
