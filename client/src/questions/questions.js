@@ -1,26 +1,26 @@
-import "./question.css";
-import { useState, useEffect } from "react";
-import QuestionItem from "./QuestionItem";
-import { Link } from "react-router-dom";
-import Ask from "./pages/ask/Ask";
+import './question.css';
+import { useState, useEffect } from 'react';
+import QuestionItem from './questionItem';
+import { Link } from 'react-router-dom';
+import Ask from './pages/ask/ask';
 // import { axios } from "axios";
 
 function Questions() {
-  const axios = require("axios");
+  const axios = require('axios');
   const getQuestionDomain =
-    "http://ec2-13-125-198-24.ap-northeast-2.compute.amazonaws.com:8080/questions?";
+    'http://ec2-13-125-198-24.ap-northeast-2.compute.amazonaws.com:8080/questions?';
 
   const [isLoding, setIsLoading] = useState(true);
   const [questionList, setQuestionList] = useState([]);
   const [tabNum, setTabNum] = useState(0);
   const [pageNum, setPageNum] = useState(1);
   // tabNum -> undifined 혹은 0 일때
-  const tabList = ["newest", "bountied", "unanswered"];
+  const tabList = ['newest', 'bountied', 'unanswered'];
 
   async function getQ(domain, pageNum, tab) {
     try {
       const res = await fetch(`${domain}page=${pageNum}&tab=${tab}`).then((e) =>
-        e.json()
+        e.json(),
       );
       return res;
     } catch (err) {

@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
-import Tags from "./components/Tags";
-import UserInfo from "./components/UserInfo";
+import { Link } from 'react-router-dom';
+import Tags from './components/tags';
+import UserInfo from './components/userInfo';
 
 export default function QuestionItem({ item }) {
   const {

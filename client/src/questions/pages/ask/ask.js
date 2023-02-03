@@ -1,5 +1,5 @@
-import Guide from "./components/Guide";
-import { useState } from "react";
+import Guide from './components/guide';
+import { useState } from 'react';
 
 export default function Ask() {
   const [question, setQuestion] = useState({});
