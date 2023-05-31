@@ -44,8 +44,8 @@ server:
       force-response: true
 jwt:
   key: ${JWT_SECRET_KEY}
-  access-token-expiration-minutes: 40
-  refresh-token-expiration-minutes: 420
+  access-token-expiration-minutes: ${JWT_ACCESS_TOKEN_EXP_MIN}
+  refresh-token-expiration-minutes: ${JWT_REFRESH_TOKEN_EXP_MIN}
 #aws:
 #  paramstore:
 #    enabled: true
