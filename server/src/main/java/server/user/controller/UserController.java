@@ -62,13 +62,13 @@ public class UserController {
         // TODO: login 은 config 패키지의 SecurityConfiguration 이 담당한다.
     }
 
-
     @ApiOperation(value = "회원 정보 수정", notes = "닉네임, 국가, 소제목, 자기소개, 개인 사이트 링크, 태그 중 변경하고 싶은 정보를 수정할 수 있다.")
     @PatchMapping("/edit/{user-id}")
     public ResponseEntity patchUser(@ApiParam(value = "user-id 값 입력") @PathVariable("user-id") long userId,
                                     @ApiParam(value = "닉네임, 국가, 소제목, 자기소개, 개인 사이트 링크, 태그 중 변경하고 싶은 정보를 입력") @Valid @RequestBody UserDto.Patch requestBody) {
         // TODO: userId 를 입력받고 requestBody 에 포함된 값들만 수정 후에 응답을 반환하거나 예외 처리
         requestBody.setUserId(userId);
+
         User user = userService.updateUser(userMapper.userPatchToUser(requestBody));
 
         return new ResponseEntity<>(

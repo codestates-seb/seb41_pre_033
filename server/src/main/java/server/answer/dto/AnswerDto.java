@@ -70,6 +70,8 @@ public class AnswerDto {
         private int vote;
         @ApiModelProperty(example = "답변 작성자 id")
         private Long userId;
+        @ApiModelProperty(example = "답변 대상자 닉네임")
+        private String nickname;
         @ApiModelProperty(example = "답변 대상 질문 id")
         private Long questionId;
     }

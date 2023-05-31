@@ -1,7 +1,6 @@
 import './profile.css';
 
-const ProfileTab = ({rep, about, tags}) => {
-    console.log(tags);
+const ProfileTab = ({rep, about, tags, ans, qs}) => {
     return (
         <div id="profile-wrapper">
             <div id="profile-stats">
@@ -9,9 +8,9 @@ const ProfileTab = ({rep, about, tags}) => {
                 <div id="stats-container">
                     <div className="stats-numbers">{rep}</div>
                     <div className="stats-items">reputation</div>
-                    <div className="stats-numbers">0</div>
+                    <div className="stats-numbers">{ans}</div>
                     <div className="stats-items">answers</div>
-                    <div className="stats-numbers">0</div>
+                    <div className="stats-numbers">{qs}</div>
                     <div className="stats-items">questions</div>
                 </div>
             </div>
@@ -19,14 +18,14 @@ const ProfileTab = ({rep, about, tags}) => {
                 <div id="about">
                     <div className='mini-title'>About</div>
                     <div id="about-container">
-                        {about}
+                        {about===null ? "No introduction has been made!":about}
                     </div>
                 </div>
                 <div id="tags">
                     <div className='mini-title'>Tags</div>
                     <div id="tags-container">
-                        <ul className='tag-list-container'>
-                        {tags.map((e) => {
+                        <ul className='tags-list-container'>
+                        {tags.length===0 ? <div className='tag-list-item'>No tags yet!</div>:tags.map((e) => {
                             return <div className='tag-list-item'>{e.tagName}</div>
                         })}
                         </ul>
@@ -38,5 +37,3 @@ const ProfileTab = ({rep, about, tags}) => {
 }
 
 export default ProfileTab;
-//reputation만 받아옴. 더미데이터에 질문답변 없어서 추가하기 귀찮..나중에 User.js에서 props로 받아오길
-//rep는 object라서 바로 {rep}로 찍으면 에러남. answer랑 questions의 경우에도 콘솔로 찍어서 확인해보자

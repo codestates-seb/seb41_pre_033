@@ -44,7 +44,7 @@ public class QuestionService {
         verifyQuestion(question);
         question.setCreated(LocalDateTime.now());
         for (QuestionTag questionTag : question.getQuestionTags()) {
-            Tag tag = tagRepository.findByName(questionTag.getTag().getName()).orElseThrow();
+            Tag tag = tagRepository.findByName(questionTag.getTag().getName()).orElseThrow(()->new BusinessLogicException(ExceptionCode.TAG_NOT_FOUND));
             if(tag.getUsed()==null) tag.setUsed(0);
             tag.setUsed(tag.getUsed()+1);
         }
@@ -66,13 +66,13 @@ public class QuestionService {
         if(Optional.ofNullable(question.getQuestionTags())
                 .isPresent()){
             for (QuestionTag questionTag : findQuestion.getQuestionTags()) {
-                Tag tag = tagRepository.findByName(questionTag.getTag().getName()).orElseThrow();
+                Tag tag = tagRepository.findByName(questionTag.getTag().getName()).orElseThrow(()->new BusinessLogicException(ExceptionCode.TAG_NOT_FOUND));
                 tag.setUsed(tag.getUsed()-1);
             }
             questionTagRepository.deleteAllByQuestion(findQuestion);
             findQuestion.setQuestionTags(question.getQuestionTags());
             for (QuestionTag questionTag : findQuestion.getQuestionTags()) {
-                Tag tag = tagRepository.findByName(questionTag.getTag().getName()).orElseThrow();
+                Tag tag = tagRepository.findByName(questionTag.getTag().getName()).orElseThrow(()->new BusinessLogicException(ExceptionCode.TAG_NOT_FOUND));
                 if(tag.getUsed()==null) tag.setUsed(0);
                 tag.setUsed(tag.getUsed()+1);
             }
@@ -115,6 +115,7 @@ public class QuestionService {
     }
 
     public Page<Question> taggedQuestions(int page, int size, String tagName, String tab) {
+        tagService.findVerifiedTag(tagName);
         List<Question> questions = questionTagRepository.findAll()
                 .stream()
                 .filter(qt -> qt.getTag().getName().equals(tagName))

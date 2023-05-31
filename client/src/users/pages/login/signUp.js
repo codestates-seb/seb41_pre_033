@@ -1,37 +1,42 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from 'react';
 import './signup.css';
+import axios from 'axios';
 
-function Signup ({setLogin}) {
-    const changeLogin = () => setLogin();
-    const form = {
-        username: document.querySelector("#email-input"),
-        password: document.querySelector("#password-input"),
-        nickname: document.querySelector("#nickname-input"),
-        submit: document.querySelector("#signup-page-button"),
-      };
+function Signup ({setLogin, setMyUserId}) {
+  const navigate = useNavigate();
+  const [formValue, setformValue] = useState({
+    email: '',
+    nickname: '',
+    password: ''
+  });
+  const handleChange = (event) => {
+    setformValue({
+      ...formValue,
+      [event.target.name]: event.target.value
+    });
+  }
+
       const signUp = (e) => {
-        const signup = "https://localhost:3001/users/sign-up";
-      
-        fetch(signup, {
-          method: "POST",
-          body: JSON.stringify({
-            username: form.username.value,
-            password: form.password.value,
-          }),
+        e.preventDefault();
+        axios.post("http://ec2-15-164-87-251.ap-northeast-2.compute.amazonaws.com:8080/users/sign-up", formValue)
+        .then((response) => {
+          console.log("res is ", response);
+          if (response.status===201) {
+            alert("Signed up successfully!");
+            setLogin();
+            setMyUserId(response.data.userId);
+            navigate("/");
+          }
         })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log(data);
-            // code here //
-            if (data.error) {
-              alert("Error Password or Username"); /*displays error message*/
-            } else {
-                alert("Signed up successfully!")
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        .catch((err) => {
+          if (err.response.status===400){
+            alert("Incorrect Email form!")
+          }
+          if (err.response.status===409) {
+            alert("Account already exist!")
+          }
+        });
       };
 
     return (
@@ -39,11 +44,11 @@ function Signup ({setLogin}) {
         <div id="signup-container">
             <form id="signup-form">
             <label for="nick">Display name</label>
-            <input name="nick" type="text" id="nickname-input"/>
+            <input name="nickname" type="text" id="nickname-input" onChange={handleChange}/>
             <label for="email">Email</label>
-            <input name="email" type="email" id="email-input" />
+            <input name="email" type="email" id="email-input" onChange={handleChange}/>
             <label for="password">Password</label>
-            <input name="password" type="password" id="password-input" />
+            <input name="password" type="password" id="password-input" onChange={handleChange}/>
             <Link to="/"><button id="signup-page-button" onClick={signUp} type="submit">Sign up</button></Link>
             </form>
         </div>

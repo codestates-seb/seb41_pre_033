@@ -36,9 +36,9 @@ public class TagService {
         return tagRepository.findAllByNameContainingIgnoreCase(q);
     }
 
-    public void findVerifiedTag(String name) {
+    public Tag findVerifiedTag(String name) {
         Optional<Tag> optionalTag = tagRepository.findByName(name);
-                optionalTag.orElseThrow(() ->
+        return optionalTag.orElseThrow(() ->
                         new BusinessLogicException(ExceptionCode.TAG_NOT_FOUND));
     }
 }

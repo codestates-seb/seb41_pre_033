@@ -5,9 +5,9 @@ spring:
   #    import: 'aws-parameterstore:'
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://test-db.ctdeoh8evqtc.ap-northeast-2.rds.amazonaws.com:3306/test?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    username: admin
-    password: 12341234
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
   jpa:
     database: mysql
     hibernate:
@@ -23,8 +23,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: ggammancj@gmail.com
-    password: ckneqcxipnfurbgb
+    username: ${EMAIL_USERNAME}
+    password: ${EMAIL_PASSWORD}
     properties:
       mail:
         smtp:
@@ -43,9 +43,9 @@ server:
     encoding:
       force-response: true
 jwt:
-  key: chaning12341234123412341234123412341234
-  access-token-expiration-minutes: 40
-  refresh-token-expiration-minutes: 420
+  key: ${JWT_SECRET_KEY}
+  access-token-expiration-minutes: ${JWT_ACCESS_TOKEN_EXP_MIN}
+  refresh-token-expiration-minutes: ${JWT_REFRESH_TOKEN_EXP_MIN}
 #aws:
 #  paramstore:
 #    enabled: true

@@ -67,7 +67,7 @@ public interface UserMapper {
                 userTagsToUserTagResponseDtos(userTags)
         );
         userResponseDto.setQuestions(
-                questionToUserTagResponseDtos(questions)
+                questionToUserTagResponseDtos(questions, user)
         );
         userResponseDto.setAnswers(
                 answersToAnswerResponseDtos(answers)
@@ -88,11 +88,13 @@ public interface UserMapper {
     }
 
     // Question for userToUserResponse
-    default List<QuestionDto.ResponseQ> questionToUserTagResponseDtos(List<Question> questions) {
+    default List<QuestionDto.ResponseQ> questionToUserTagResponseDtos(List<Question> questions, User user) {
         return questions
                 .stream()
                 .map(question -> {
                     QuestionDto.ResponseQ question1 = new QuestionDto.ResponseQ();
+                    question1.setUserId(user);
+                    question1.setNickname(user.getNickname());
                     question1.setQuestionId(question.getQuestionId());
                     question1.setTitle(question.getTitle());
                     question1.setBody(question.getBody());

@@ -1,0 +1,46 @@
+#edit-form {
+    display: flex;
+    flex-direction: column;
+    width: 40rem;
+    border: 1px solid grey;
+    border-radius: 2rem;
+    padding: 5rem;
+}
+#edit-wrapper {
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 10px solid palegoldenrod
+}
+#edit-title {
+    font-size: 4rem;
+    margin: 2rem 0;
+}
+.ipt {
+    margin-bottom: 1.5rem;
+    padding: 0.6rem;
+    margin-top: 0.4rem;
+}
+.label-info {
+    font-size: 1.5rem;
+}
+#edit-buttons-container {
+    display: flex;
+    flex-direction: row;
+    margin: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+.edit-page-button {
+    padding: 1.2rem;
+    font-size: 1.5rem;
+    border-radius: 1rem;
+    width: 10rem;
+    margin: 1rem;
+}
+.edit-page-button:hover {
+    background-color: grey;
+    color: white;
+}
